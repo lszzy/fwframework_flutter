@@ -83,9 +83,13 @@ flutter_gen:
 
   assets:
     enabled: true
+    outputs:
+      class_name: AppAssets
 
   colors:
     enabled: true
+    outputs:
+      class_name: AppColors
     inputs:
       - assets/colors/colors.xml
 
@@ -102,7 +106,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/colors/
     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
