@@ -20,5 +20,10 @@ samples, guidance on mobile development, and a full API reference.
 ### flutter_launcher_icons
 
     1. dart run flutter_launcher_icons:generate
-    2. assets/icon/icon.png
+    2. flutter_launcher_icons.yaml: assets/icon/icon.png
     3. dart run flutter_launcher_icons
+
+### flutter_native_splash
+
+    1. flutter_native_splash.yaml
+    2. dart run flutter_native_splash:create
