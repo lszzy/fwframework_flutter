@@ -1,3 +1,4 @@
+import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('fwframework_flutter'),
+        title: Text(S.current.home_title),
       ),
       body: Center(
         child: Column(

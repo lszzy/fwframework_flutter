@@ -1,8 +1,12 @@
 library fwframework_flutter;
 
+export 'src/service/semaphore.dart';
+export 'src/view/extension/context_extension.dart';
+export 'src/view/extension/list_extension.dart';
 export 'src/view/accurate_sized_box.dart';
 export 'src/view/after_layout.dart';
 export 'src/view/clickable_widget.dart';
+export 'src/view/exit_app_scope.dart';
 export 'src/view/keep_alive.dart';
 export 'src/view/left_right_box.dart';
 

@@ -1,12 +1,13 @@
 import 'package:example/src/module/home/view/home_page.dart';
 import 'package:example/src/module/settings/view/settings_page.dart';
 import 'package:example/src/module/test/view/test_page.dart';
+import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
 
 enum TabPageType {
-  car,
-  transit,
-  bike,
+  home,
+  test,
+  settings,
 }
 
 class TabPage extends StatefulWidget {
@@ -17,24 +18,24 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
-  TabPageType _selectedTab = TabPageType.car;
+  TabPageType _selectedTab = TabPageType.home;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            label: 'Car',
+            icon: const Icon(Icons.home),
+            label: S.current.tabbar_home,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_transit),
-            label: 'Transit',
+            icon: const Icon(Icons.bug_report),
+            label: S.current.tabbar_test,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_bike),
-            label: 'Bike',
+            icon: const Icon(Icons.settings),
+            label: S.current.tabbar_settings,
           ),
         ],
         currentIndex: _selectedTab.index,

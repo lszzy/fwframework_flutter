@@ -32,3 +32,11 @@ samples, guidance on mobile development, and a full API reference.
 
     1. pubspec.yaml: flutter_gen
     2. dart run build_runner build --delete-conflicting-outputs
+
+### flutter_intl
+
+    1. Flutter Intl Initialize
+    2. pubspec.yaml: flutter_intl
+    3. Flutter Intl Add Locale
+    4. MaterialApp: localizationsDelegates
+    5. Info.plist: CFBundleLocalizations
