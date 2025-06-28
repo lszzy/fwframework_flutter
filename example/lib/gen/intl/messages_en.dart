@@ -24,6 +24,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "home_title":
             MessageLookupByLibrary.simpleMessage("fwframework_flutter Demo"),
+        "home_welcome": MessageLookupByLibrary.simpleMessage(
+            "Do you know that I\'m waiting for you?"),
+        "settings_locale": MessageLookupByLibrary.simpleMessage("Language"),
+        "settings_system": MessageLookupByLibrary.simpleMessage("System"),
+        "settings_theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "tabbar_home": MessageLookupByLibrary.simpleMessage("Home"),
         "tabbar_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "tabbar_test": MessageLookupByLibrary.simpleMessage("Test")

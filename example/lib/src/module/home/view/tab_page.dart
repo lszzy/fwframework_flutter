@@ -3,6 +3,7 @@ import 'package:example/src/module/settings/view/settings_page.dart';
 import 'package:example/src/module/test/view/test_page.dart';
 import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 enum TabPageType {
   home,
@@ -10,18 +11,15 @@ enum TabPageType {
   settings,
 }
 
-class TabPage extends StatefulWidget {
+class TabPage extends ConsumerWidget {
   const TabPage({super.key});
 
-  @override
-  State<TabPage> createState() => _TabPageState();
-}
-
-class _TabPageState extends State<TabPage> {
-  TabPageType _selectedTab = TabPageType.home;
+  static final tabProvider =
+      StateProvider<TabPageType>((ref) => TabPageType.home);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tab = ref.watch(tabProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -38,15 +36,13 @@ class _TabPageState extends State<TabPage> {
             label: S.current.tabbar_settings,
           ),
         ],
-        currentIndex: _selectedTab.index,
+        currentIndex: tab.index,
         onTap: (index) {
-          setState(() {
-            _selectedTab = TabPageType.values[index];
-          });
+          ref.read(tabProvider.notifier).state = TabPageType.values[index];
         },
       ),
       body: IndexedStack(
-        index: _selectedTab.index,
+        index: tab.index,
         children: const [
           HomePage(),
           TestPage(),

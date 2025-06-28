@@ -1,3 +1,4 @@
+import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {
@@ -19,16 +20,10 @@ class _TestPageState extends State<TestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Test'),
+        title: Text(S.current.tabbar_test),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(message),
-          ],
-        ),
+      body: const Center(
+        child: SizedBox.shrink(),
       ),
     );
   }

@@ -51,7 +51,7 @@ dependencies:
   geolocator: ^13.0.0
   platform_maps_flutter: ^2.0.0-beta
   in_app_purchase: ^3.2.0
-  fwdebug_flutter: ^1.1.0
+  fwdebug_flutter: ^1.4.0
 
   fwframework_flutter:
     path: ../

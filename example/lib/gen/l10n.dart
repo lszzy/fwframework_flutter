@@ -89,6 +89,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you know that I'm waiting for you?`
+  String get home_welcome {
+    return Intl.message(
+      'Do you know that I\'m waiting for you?',
+      name: 'home_welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get settings_locale {
+    return Intl.message(
+      'Language',
+      name: 'settings_locale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get settings_theme {
+    return Intl.message(
+      'Theme',
+      name: 'settings_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get settings_system {
+    return Intl.message(
+      'System',
+      name: 'settings_system',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

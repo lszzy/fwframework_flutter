@@ -1,70 +1,77 @@
 import 'package:example/gen/l10n.dart';
+import 'package:example/src/service/provider/locale_provider.dart';
+import 'package:example/src/service/provider/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:fwframework_flutter/fwframework_flutter.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Settings'),
+        title: Text(S.current.tabbar_settings),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              Intl.getCurrentLocale(),
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onChangeLocale,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text(S.current.settings_locale),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _onLocaleTapped(context, ref),
+          ),
+          ListTile(
+            title: Text(S.current.settings_theme),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _onThemeTapped(context, ref),
+          ),
+        ],
       ),
     );
   }
 
-  void _onChangeLocale() {
+  void _onLocaleTapped(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
         return CupertinoActionSheet(
-          title: const Text('请选择语言'),
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                _onApplyLocale(const Locale.fromSubtags(languageCode: 'en'));
+                ref.read(localeProvider.notifier).setLocale(null);
+                Navigator.of(context).pop();
               },
-              isDefaultAction: Intl.getCurrentLocale() == 'en',
+              isDefaultAction: locale == null,
+              child: Text(S.current.settings_system),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(localeProvider.notifier).setLocale(LocaleNotifier.en);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: locale == LocaleNotifier.en,
               child: const Text('English'),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                _onApplyLocale(const Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hans'));
+                ref
+                    .read(localeProvider.notifier)
+                    .setLocale(LocaleNotifier.zhHans);
+                Navigator.of(context).pop();
               },
-              isDefaultAction: Intl.getCurrentLocale() == 'zh_Hans',
+              isDefaultAction: locale == LocaleNotifier.zhHans,
               child: const Text('简体中文'),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                _onApplyLocale(const Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hant'));
+                ref
+                    .read(localeProvider.notifier)
+                    .setLocale(LocaleNotifier.zhHant);
+                Navigator.of(context).pop();
               },
-              isDefaultAction: Intl.getCurrentLocale() == 'zh_Hant',
+              isDefaultAction: locale == LocaleNotifier.zhHant,
               child: const Text('繁體中文'),
             ),
           ],
@@ -73,10 +80,36 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void _onApplyLocale(Locale locale) {
-    setState(() {
-      S.load(locale);
-    });
-    Navigator.of(context).pop();
+  void _onThemeTapped(BuildContext context, WidgetRef ref) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.system);
+                Navigator.of(context).pop();
+              },
+              child: Text(S.current.settings_system),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.light);
+                Navigator.of(context).pop();
+              },
+              child: const Text('浅色'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.dark);
+                Navigator.of(context).pop();
+              },
+              child: const Text('深色'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
