@@ -17,6 +17,7 @@ export 'package:extended_image/extended_image.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:package_info_plus/package_info_plus.dart';
 export 'package:device_info_plus/device_info_plus.dart';

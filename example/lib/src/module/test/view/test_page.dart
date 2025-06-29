@@ -1,4 +1,6 @@
 import 'package:example/gen/l10n.dart';
+import 'package:example/src/app/app_router.dart';
+import 'package:example/src/module/test/view/test_gorouter_page.dart';
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {
@@ -9,14 +11,47 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  late final Map<String, dynamic> _testRoutes;
+
+  @override
+  void initState() {
+    _testRoutes = {
+      'go_router': () {
+        const TestGorouterRoute(
+          path: 'path',
+          query: 'query',
+          $extra: TestGorouterExtra('\$extra'),
+        ).go(context);
+      },
+      'flutter_screenutil': TestScreenutilRoute().location,
+    };
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final routeKeys = _testRoutes.keys.toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).tabbar_test),
       ),
-      body: const Center(
-        child: SizedBox.shrink(),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          final routeKey = routeKeys[index];
+          return ListTile(
+            title: Text(routeKey),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              final route = _testRoutes[routeKey];
+              if (route is Function) {
+                route();
+              } else {
+                appRouter.push(_testRoutes[routeKey]);
+              }
+            },
+          );
+        },
+        itemCount: routeKeys.length,
       ),
     );
   }

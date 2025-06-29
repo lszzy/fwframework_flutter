@@ -1,4 +1,3 @@
-import 'package:example/gen/l10n.dart';
 import 'package:example/src/service/manager/preference_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
@@ -67,11 +66,5 @@ class LocaleNotifier extends StateNotifier<Locale?> {
       }
     }
     return null;
-  }
-}
-
-extension BuildContextLocaleExtension on BuildContext {
-  S get locale {
-    return S.of(this);
   }
 }
