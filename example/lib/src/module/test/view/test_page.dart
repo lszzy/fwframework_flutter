@@ -21,7 +21,7 @@ class _TestPageState extends State<TestPage> {
           path: 'path',
           query: 'query',
           $extra: TestGorouterExtra('\$extra'),
-        ).go(context);
+        ).push(context);
       },
       'flutter_screenutil': TestScreenutilRoute().location,
     };

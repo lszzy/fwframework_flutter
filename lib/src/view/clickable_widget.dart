@@ -10,7 +10,7 @@ class ClickableWidget extends StatefulWidget {
     super.key,
     required this.onTap,
     required this.child,
-    this.timeout = 5,
+    this.timeout = 60,
     this.behavior = HitTestBehavior.opaque,
     this.interval,
   });
@@ -51,7 +51,7 @@ class _ClickableState extends State<ClickableWidget> {
       if (ret is Future) ret,
     ])
         .then((value) => clickable = true)
-        .timeout(Duration(seconds: widget.timeout))
+        .timeout(Duration(seconds: widget.timeout > 0 ? widget.timeout : 60))
         .onError((error, stackTrace) => clickable = true);
   }
 }

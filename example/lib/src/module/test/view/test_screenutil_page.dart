@@ -4,13 +4,34 @@ import 'package:fwframework_flutter/fwframework_flutter.dart';
 class TestScreenutilPage extends ConsumerWidget {
   const TestScreenutilPage({super.key});
 
-  Map<String, dynamic> get _data => {};
+  Map<String, dynamic> _data(BuildContext context) => {
+        'orientation': ScreenUtil().orientation,
+        'textScaleFactor': ScreenUtil().textScaleFactor,
+        'pixelRatio': ScreenUtil().pixelRatio,
+        'screenWidth': ScreenUtil().screenWidth,
+        'screenHeight': ScreenUtil().screenHeight,
+        'statusBarHeight': ScreenUtil().statusBarHeight,
+        'bottomBarHeight': ScreenUtil().bottomBarHeight,
+        'kToolbarHeight': kToolbarHeight,
+        'kBottomNavigationBarHeight': kBottomNavigationBarHeight,
+        'scaleWidth': ScreenUtil().scaleWidth,
+        'scaleHeight': ScreenUtil().scaleHeight,
+        'scaleText': ScreenUtil().scaleText,
+        'setWidth(100)': ScreenUtil().setWidth(100),
+        'setHeight(100)': ScreenUtil().setHeight(100),
+        'radius(100)': ScreenUtil().radius(100),
+        'diagonal(100)': ScreenUtil().diagonal(100),
+        'diameter(100)': ScreenUtil().diameter(100),
+        'setSp(100)': ScreenUtil().setSp(100),
+        'deviceType': ScreenUtil().deviceType(context),
+      };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = _data;
+    final data = _data(context);
     final keys = data.keys.toList();
     return Scaffold(
+      // PreferredSize包裹AppBar自定义局部导航栏高度
       appBar: AppBar(
         title: const Text('flutter_screenutil'),
       ),

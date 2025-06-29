@@ -34,6 +34,7 @@ class MyApp extends ConsumerWidget {
           title: 'fwframework_flutter',
           routerConfig: appRouter,
           debugShowCheckedModeBanner: false,
+          // appBarTheme.toolbarHeight自定义全局导航栏高度
           theme: ThemeData.light(useMaterial3: true),
           darkTheme: ThemeData.dark(useMaterial3: true),
           themeMode: themeMode,
