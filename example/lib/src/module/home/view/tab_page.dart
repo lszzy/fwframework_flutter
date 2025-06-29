@@ -25,15 +25,15 @@ class TabPage extends ConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
-            label: S.current.tabbar_home,
+            label: S.of(context).tabbar_home,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.bug_report),
-            label: S.current.tabbar_test,
+            label: S.of(context).tabbar_test,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.settings),
-            label: S.current.tabbar_settings,
+            label: S.of(context).tabbar_settings,
           ),
         ],
         currentIndex: tab.index,

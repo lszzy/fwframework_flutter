@@ -12,17 +12,17 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.tabbar_settings),
+        title: Text(S.of(context).tabbar_settings),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text(S.current.settings_locale),
+            title: Text(S.of(context).settings_locale),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _onLocaleTapped(context, ref),
           ),
           ListTile(
-            title: Text(S.current.settings_theme),
+            title: Text(S.of(context).settings_theme),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _onThemeTapped(context, ref),
           ),
@@ -44,7 +44,7 @@ class SettingsPage extends ConsumerWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == null,
-              child: Text(S.current.settings_system),
+              child: Text(S.of(context).settings_system),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -81,6 +81,7 @@ class SettingsPage extends ConsumerWidget {
   }
 
   void _onThemeTapped(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -91,13 +92,15 @@ class SettingsPage extends ConsumerWidget {
                 ref.read(themeProvider.notifier).setThemeMode(ThemeMode.system);
                 Navigator.of(context).pop();
               },
-              child: Text(S.current.settings_system),
+              isDefaultAction: theme == ThemeMode.system,
+              child: Text(S.of(context).settings_system),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 ref.read(themeProvider.notifier).setThemeMode(ThemeMode.light);
                 Navigator.of(context).pop();
               },
+              isDefaultAction: theme == ThemeMode.light,
               child: const Text('浅色'),
             ),
             CupertinoActionSheetAction(
@@ -105,6 +108,7 @@ class SettingsPage extends ConsumerWidget {
                 ref.read(themeProvider.notifier).setThemeMode(ThemeMode.dark);
                 Navigator.of(context).pop();
               },
+              isDefaultAction: theme == ThemeMode.dark,
               child: const Text('深色'),
             ),
           ],

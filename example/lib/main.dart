@@ -33,7 +33,11 @@ class MyApp extends ConsumerWidget {
       navigatorObservers: [FwdebugFlutter.navigatorObserver],
       locale: locale,
       supportedLocales: S.delegate.supportedLocales,
-      localeListResolutionCallback: LocaleNotifier.localeListResolutionCallback,
+      localeListResolutionCallback: (locales, supportedLocales) {
+        final locale = locales?.firstOrNull;
+        return LocaleNotifier.supportedLocale(locale, supportedLocales) ??
+            LocaleNotifier.en;
+      },
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

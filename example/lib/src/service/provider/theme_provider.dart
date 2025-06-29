@@ -10,15 +10,15 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
   ThemeNotifier() : super(ThemeNotifier.themeMode);
 
   static ThemeMode get themeMode {
-    final themeMode = PreferenceManager.instance.getString('ThemeMode');
+    final themeName = PreferenceManager.instance.getString('AppTheme');
     return ThemeMode.values.firstWhere(
-      (e) => e.name == themeMode,
+      (e) => e.name == themeName,
       orElse: () => ThemeMode.system,
     );
   }
 
   void setThemeMode(ThemeMode themeMode) {
     state = themeMode;
-    PreferenceManager.instance.setString('ThemeMode', themeMode.name);
+    PreferenceManager.instance.setString('AppTheme', themeMode.name);
   }
 }

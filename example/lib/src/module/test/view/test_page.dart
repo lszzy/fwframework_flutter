@@ -9,18 +9,11 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  String message = '';
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.tabbar_test),
+        title: Text(S.of(context).tabbar_test),
       ),
       body: const Center(
         child: SizedBox.shrink(),
