@@ -17,6 +17,12 @@ class TabPage extends ConsumerWidget {
   static final tabProvider =
       StateProvider<TabPageType>((ref) => TabPageType.home);
 
+  final _pages = const [
+    HomePage(),
+    TestPage(),
+    SettingsPage(),
+  ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tab = ref.watch(tabProvider);
@@ -43,11 +49,7 @@ class TabPage extends ConsumerWidget {
       ),
       body: IndexedStack(
         index: tab.index,
-        children: const [
-          HomePage(),
-          TestPage(),
-          SettingsPage(),
-        ],
+        children: _pages,
       ),
     );
   }

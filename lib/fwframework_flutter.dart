@@ -2,6 +2,7 @@ library fwframework_flutter;
 
 export 'src/service/semaphore.dart';
 export 'src/view/extension/context_extension.dart';
+export 'src/view/extension/function_extension.dart';
 export 'src/view/extension/list_extension.dart';
 export 'src/view/accurate_sized_box.dart';
 export 'src/view/after_layout.dart';
