@@ -54,3 +54,88 @@ class TabPage extends ConsumerWidget {
     );
   }
 }
+
+class BottomNavigationPage extends StatefulWidget {
+  const BottomNavigationPage({
+    super.key,
+    required this.child,
+  });
+
+  final StatefulNavigationShell child;
+
+  @override
+  State<BottomNavigationPage> createState() => _BottomNavigationPageState();
+
+  static StatefulShellRoute get route {
+    return StatefulShellRoute.indexedStack(
+      parentNavigatorKey: AppRouter.navigatorKey,
+      branches: [
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/home',
+            pageBuilder: (context, state) {
+              return AppRouter.buildPage(child: const HomePage(), state: state);
+            },
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/test',
+            pageBuilder: (context, state) {
+              return AppRouter.buildPage(child: const TestPage(), state: state);
+            },
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/settings',
+            pageBuilder: (context, state) {
+              return AppRouter.buildPage(
+                  child: const SettingsPage(), state: state);
+            },
+          ),
+        ]),
+      ],
+      pageBuilder: (context, state, navigationShell) {
+        return AppRouter.buildPage(
+          child: BottomNavigationPage(child: navigationShell),
+          state: state,
+        );
+      },
+    );
+  }
+}
+
+class _BottomNavigationPageState extends State<BottomNavigationPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: widget.child.currentIndex,
+        onTap: (index) {
+          widget.child.goBranch(
+            index,
+            initialLocation: index == widget.child.currentIndex,
+          );
+          setState(() {});
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: S.of(context).tabbar_home,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.bug_report),
+            label: S.of(context).tabbar_test,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: S.of(context).tabbar_settings,
+          ),
+        ],
+      ),
+    );
+  }
+}

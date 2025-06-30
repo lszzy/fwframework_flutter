@@ -8,6 +8,8 @@ import 'package:fwframework_flutter/fwframework_flutter.dart';
 part 'app_router.g.dart';
 
 final appRouter = GoRouter(
+  navigatorKey: AppRouter.navigatorKey,
+  initialLocation: null,
   routes: $appRoutes,
   observers: [FwdebugFlutter.navigatorObserver],
 );

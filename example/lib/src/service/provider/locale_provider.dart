@@ -28,14 +28,20 @@ class LocaleNotifier extends StateNotifier<Locale?> {
   static const zhHant =
       Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant');
 
-  static Locale? fromLanguageTag(String? languageTag) {
+  static Locale? fromLanguageTag(
+    String? languageTag, [
+    bool isSecondCountryCode = false,
+  ]) {
     if (languageTag == null || languageTag.isEmpty) return null;
     final parts = languageTag.split('-');
     if (parts.isEmpty || parts[0].isEmpty) return null;
+    final part1 = parts.length > 1 && parts[1].isNotEmpty ? parts[1] : null;
+    final part2 = parts.length > 2 && parts[2].isNotEmpty ? parts[2] : null;
     return Locale.fromSubtags(
       languageCode: parts[0],
-      scriptCode: parts.length > 1 && parts[1].isNotEmpty ? parts[1] : null,
-      countryCode: parts.length > 2 && parts[2].isNotEmpty ? parts[2] : null,
+      scriptCode: (parts.length > 2 || !isSecondCountryCode) ? part1 : null,
+      countryCode:
+          (parts.length > 2) ? part2 : (isSecondCountryCode ? part1 : null),
     );
   }
 

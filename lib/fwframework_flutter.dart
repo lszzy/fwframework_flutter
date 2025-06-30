@@ -1,5 +1,6 @@
 library fwframework_flutter;
 
+export 'src/app/app_router.dart';
 export 'src/service/semaphore.dart';
 export 'src/view/extension/context_extension.dart';
 export 'src/view/extension/function_extension.dart';
