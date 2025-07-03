@@ -2,6 +2,7 @@ import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
 import 'package:example/src/module/test/view/test_gorouter_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -46,7 +47,7 @@ class _TestPageState extends State<TestPage> {
               if (route is Function) {
                 route();
               } else {
-                appRouter.push(_testRoutes[routeKey]);
+                AppRouter.router.push(_testRoutes[routeKey]);
               }
             },
           );

@@ -3,10 +3,58 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static late final GoRouter router;
+  static GoRouter get router {
+    assert(
+      _router != null,
+      'AppRouter has not been initialized. Call AppRouter.init() before accessing the router.',
+    );
+    return _router!;
+  }
 
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
+
+  static GoRouter? _router;
+
+  static GoRouter init({
+    required List<RouteBase> routes,
+    String? initialLocation,
+    Object? initialExtra,
+    List<NavigatorObserver>? observers,
+    GoRouterRedirect? redirect,
+    GoExceptionHandler? onException,
+    GoRouterPageBuilder? errorPageBuilder,
+    GoRouterWidgetBuilder? errorBuilder,
+  }) {
+    _router ??= GoRouter(
+      navigatorKey: navigatorKey,
+      initialLocation: initialLocation,
+      initialExtra: initialExtra,
+      routes: routes,
+      observers: observers,
+      redirect: redirect,
+      onException: onException,
+      errorPageBuilder: errorPageBuilder,
+      errorBuilder: errorBuilder,
+    );
+    return _router!;
+  }
+
+  static StatefulShellRoute shellRoute({
+    required List<RouteBase> routes,
+    StatefulShellRoutePageBuilder? pageBuilder,
+    StatefulShellRouteBuilder? builder,
+    GoRouterRedirect? redirect,
+  }) {
+    return StatefulShellRoute.indexedStack(
+      parentNavigatorKey: navigatorKey,
+      branches:
+          routes.map((route) => StatefulShellBranch(routes: [route])).toList(),
+      pageBuilder: pageBuilder,
+      builder: builder,
+      redirect: redirect,
+    );
+  }
 
   static Page buildPage({
     required Widget child,

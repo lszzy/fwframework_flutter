@@ -1,5 +1,8 @@
 import 'package:example/gen/l10n.dart';
+import 'package:example/src/app/app_router.dart';
+import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +19,12 @@ class _HomePageState extends State<HomePage> {
         title: Text(S.of(context).home_title),
       ),
       body: Center(
-        child: Text(S.of(context).home_welcome),
+        child: ClickableWidget(
+            onTap: () {
+              AppRouter.router.go(TabPageType.test.path);
+              AppRouter.router.push(TestScreenutilRoute().location);
+            },
+            child: Text(S.of(context).home_welcome)),
       ),
     );
   }

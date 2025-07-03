@@ -6,99 +6,67 @@ import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 enum TabPageType {
-  home,
-  test,
-  settings,
-}
+  home('/'),
+  test('/test'),
+  settings('/settings');
 
-class TabPage extends ConsumerWidget {
-  const TabPage({super.key});
+  const TabPageType(this.path);
+  final String path;
 
-  static final tabProvider =
-      StateProvider<TabPageType>((ref) => TabPageType.home);
-
-  final _pages = const [
-    HomePage(),
-    TestPage(),
-    SettingsPage(),
-  ];
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tab = ref.watch(tabProvider);
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: S.of(context).tabbar_home,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.bug_report),
-            label: S.of(context).tabbar_test,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: S.of(context).tabbar_settings,
-          ),
-        ],
-        currentIndex: tab.index,
-        onTap: (index) {
-          ref.read(tabProvider.notifier).state = TabPageType.values[index];
-        },
-      ),
-      body: IndexedStack(
-        index: tab.index,
-        children: _pages,
-      ),
-    );
+  Widget page(BuildContext context, GoRouterState state) {
+    switch (this) {
+      case TabPageType.home:
+        return const HomePage();
+      case TabPageType.test:
+        return const TestPage();
+      case TabPageType.settings:
+        return const SettingsPage();
+    }
   }
 }
 
-class BottomNavigationPage extends StatefulWidget {
-  const BottomNavigationPage({
-    super.key,
-    required this.child,
-  });
+class TabPage extends StatefulWidget {
+  const TabPage({super.key, required this.child});
 
   final StatefulNavigationShell child;
 
   @override
-  State<BottomNavigationPage> createState() => _BottomNavigationPageState();
+  State<TabPage> createState() => _TabPageState();
 
   static StatefulShellRoute get route {
-    return StatefulShellRoute.indexedStack(
-      parentNavigatorKey: AppRouter.navigatorKey,
-      branches: [
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/home',
-            pageBuilder: (context, state) {
-              return AppRouter.buildPage(child: const HomePage(), state: state);
-            },
-          ),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/test',
-            pageBuilder: (context, state) {
-              return AppRouter.buildPage(child: const TestPage(), state: state);
-            },
-          ),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/settings',
-            pageBuilder: (context, state) {
-              return AppRouter.buildPage(
-                  child: const SettingsPage(), state: state);
-            },
-          ),
-        ]),
+    return AppRouter.shellRoute(
+      routes: [
+        GoRoute(
+          path: TabPageType.home.path,
+          pageBuilder: (context, state) {
+            return AppRouter.buildPage(
+              child: TabPageType.home.page(context, state),
+              state: state,
+            );
+          },
+        ),
+        GoRoute(
+          path: TabPageType.test.path,
+          pageBuilder: (context, state) {
+            return AppRouter.buildPage(
+              child: TabPageType.test.page(context, state),
+              state: state,
+            );
+          },
+        ),
+        GoRoute(
+          path: TabPageType.settings.path,
+          pageBuilder: (context, state) {
+            return AppRouter.buildPage(
+              child: TabPageType.settings.page(context, state),
+              state: state,
+            );
+          },
+        ),
       ],
       pageBuilder: (context, state, navigationShell) {
         return AppRouter.buildPage(
-          child: BottomNavigationPage(child: navigationShell),
+          child: TabPage(child: navigationShell),
           state: state,
         );
       },
@@ -106,7 +74,7 @@ class BottomNavigationPage extends StatefulWidget {
   }
 }
 
-class _BottomNavigationPageState extends State<BottomNavigationPage> {
+class _TabPageState extends State<TabPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

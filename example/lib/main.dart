@@ -1,5 +1,6 @@
 import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
+import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:example/src/service/manager/preference_manager.dart';
 import 'package:example/src/service/provider/locale_provider.dart';
 import 'package:example/src/service/provider/theme_provider.dart';
@@ -32,7 +33,13 @@ class MyApp extends ConsumerWidget {
       builder: (context, child) {
         return MaterialApp.router(
           title: 'fwframework_flutter',
-          routerConfig: appRouter,
+          routerConfig: AppRouter.init(
+            routes: [
+              ...[TabPage.route],
+              ...$appRoutes
+            ],
+            observers: [FwdebugFlutter.navigatorObserver],
+          ),
           debugShowCheckedModeBanner: false,
           // appBarTheme.toolbarHeight自定义全局导航栏高度
           theme: ThemeData.light(useMaterial3: true),
@@ -40,7 +47,7 @@ class MyApp extends ConsumerWidget {
           themeMode: themeMode,
           builder: FlutterSmartDialog.init(
             builder: (context, child) {
-              FwdebugFlutter.openUrl(appRouter.push);
+              FwdebugFlutter.openUrl(AppRouter.router.push);
               return FwdebugFlutter.inspector(child: child!);
             },
           ),
