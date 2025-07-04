@@ -1,32 +1,33 @@
-import 'package:example/src/service/manager/preference_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:fwframework_flutter/fwframework_flutter.dart';
-
-final localeProvider = StateNotifierProvider<LocaleNotifier, Locale?>((ref) {
-  return LocaleNotifier();
-});
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fwframework_flutter/src/service/storage_service.dart';
 
 class LocaleNotifier extends StateNotifier<Locale?> {
-  LocaleNotifier() : super(locale);
-
-  static Locale? get locale {
-    final languageTag = PreferenceManager.instance.getString('AppLocale');
-    return fromLanguageTag(languageTag);
-  }
+  LocaleNotifier() : super(LocaleService.locale);
 
   void setLocale(Locale? locale) {
     if (state != locale) {
       state = locale;
-      PreferenceManager.instance
-          .setString('AppLocale', locale?.toLanguageTag() ?? '');
+      LocaleService.setLocale(locale);
     }
   }
+}
 
-  static const en = Locale.fromSubtags(languageCode: 'en');
-  static const zhHans =
-      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans');
-  static const zhHant =
-      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant');
+class LocaleService {
+  static final localeProvider =
+      StateNotifierProvider<LocaleNotifier, Locale?>((ref) {
+    return LocaleNotifier();
+  });
+
+  static Locale? get locale {
+    final languageTag = StorageService.instance.getString('AppLocale');
+    return fromLanguageTag(languageTag);
+  }
+
+  static void setLocale(Locale? locale) {
+    StorageService.instance
+        .setString('AppLocale', locale?.toLanguageTag() ?? '');
+  }
 
   static Locale? fromLanguageTag(
     String? languageTag, [

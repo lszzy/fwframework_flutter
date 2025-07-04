@@ -1,6 +1,6 @@
 import 'package:example/gen/l10n.dart';
-import 'package:example/src/service/provider/locale_provider.dart';
-import 'package:example/src/service/provider/theme_provider.dart';
+import 'package:example/src/library/service/app_event.dart';
+import 'package:example/src/library/standard/app_locale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
@@ -32,7 +32,7 @@ class SettingsPage extends ConsumerWidget {
   }
 
   void _onLocaleTapped(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localeProvider);
+    final locale = ref.watch(LocaleService.localeProvider);
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -40,7 +40,11 @@ class SettingsPage extends ConsumerWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(localeProvider.notifier).setLocale(null);
+                ref.read(LocaleService.localeProvider.notifier).setLocale(null);
+                MmkvService.instance
+                    .defaultMMKV()
+                    .encodeString('appLocale', null);
+                EventService.eventBus.fire(LocaleChangedEvent(null));
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == null,
@@ -48,31 +52,44 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(localeProvider.notifier).setLocale(LocaleNotifier.en);
+                ref
+                    .read(LocaleService.localeProvider.notifier)
+                    .setLocale(AppLocale.en.locale);
+                MmkvService.instance.defaultMMKV().encodeString(
+                    'appLocale', AppLocale.en.locale.toLanguageTag());
+                EventService.eventBus.fire(LocaleChangedEvent(AppLocale.en));
                 Navigator.of(context).pop();
               },
-              isDefaultAction: locale == LocaleNotifier.en,
-              child: const Text('English'),
+              isDefaultAction: locale == AppLocale.en.locale,
+              child: Text(AppLocale.en.name),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 ref
-                    .read(localeProvider.notifier)
-                    .setLocale(LocaleNotifier.zhHans);
+                    .read(LocaleService.localeProvider.notifier)
+                    .setLocale(AppLocale.zhHans.locale);
+                MmkvService.instance.defaultMMKV().encodeString(
+                    'appLocale', AppLocale.zhHans.locale.toLanguageTag());
+                EventService.eventBus
+                    .fire(LocaleChangedEvent(AppLocale.zhHans));
                 Navigator.of(context).pop();
               },
-              isDefaultAction: locale == LocaleNotifier.zhHans,
-              child: const Text('简体中文'),
+              isDefaultAction: locale == AppLocale.zhHans.locale,
+              child: Text(AppLocale.zhHans.name),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 ref
-                    .read(localeProvider.notifier)
-                    .setLocale(LocaleNotifier.zhHant);
+                    .read(LocaleService.localeProvider.notifier)
+                    .setLocale(AppLocale.zhHant.locale);
+                MmkvService.instance.defaultMMKV().encodeString(
+                    'appLocale', AppLocale.zhHant.locale.toLanguageTag());
+                EventService.eventBus
+                    .fire(LocaleChangedEvent(AppLocale.zhHant));
                 Navigator.of(context).pop();
               },
-              isDefaultAction: locale == LocaleNotifier.zhHant,
-              child: const Text('繁體中文'),
+              isDefaultAction: locale == AppLocale.zhHant.locale,
+              child: Text(AppLocale.zhHant.name),
             ),
           ],
         );
@@ -81,7 +98,7 @@ class SettingsPage extends ConsumerWidget {
   }
 
   void _onThemeTapped(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(themeProvider);
+    final theme = ref.watch(ThemeService.themeProvider);
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -89,7 +106,9 @@ class SettingsPage extends ConsumerWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.system);
+                ref
+                    .read(ThemeService.themeProvider.notifier)
+                    .setThemeMode(ThemeMode.system);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.system,
@@ -97,7 +116,9 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.light);
+                ref
+                    .read(ThemeService.themeProvider.notifier)
+                    .setThemeMode(ThemeMode.light);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.light,
@@ -105,7 +126,9 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeProvider.notifier).setThemeMode(ThemeMode.dark);
+                ref
+                    .read(ThemeService.themeProvider.notifier)
+                    .setThemeMode(ThemeMode.dark);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.dark,

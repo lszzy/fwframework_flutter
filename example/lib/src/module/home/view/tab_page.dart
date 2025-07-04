@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:example/src/library/service/app_event.dart';
 import 'package:example/src/module/home/view/home_page.dart';
 import 'package:example/src/module/settings/view/settings_page.dart';
 import 'package:example/src/module/test/view/test_page.dart';
 import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:fwdebug_flutter/fwdebug_flutter.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 enum TabPageType {
@@ -75,6 +79,26 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
+  StreamSubscription? _subscription;
+
+  @override
+  void initState() {
+    _subscription =
+        EventService.eventBus.on<LocaleChangedEvent>().listen((event) {
+      FwdebugFlutter.info('LocaleChangedEvent: ${event.locale?.name}');
+      final appLocale =
+          MmkvService.instance.defaultMMKV().decodeString('appLocale');
+      FwdebugFlutter.info('appLocale: ${appLocale.toString()}');
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

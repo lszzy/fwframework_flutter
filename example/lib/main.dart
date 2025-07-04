@@ -1,9 +1,7 @@
 import 'package:example/gen/l10n.dart';
+import 'package:example/src/library/standard/app_locale.dart';
 import 'package:example/src/app/app_router.dart';
 import 'package:example/src/module/home/view/tab_page.dart';
-import 'package:example/src/service/manager/preference_manager.dart';
-import 'package:example/src/service/provider/locale_provider.dart';
-import 'package:example/src/service/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fwdebug_flutter/fwdebug_flutter.dart';
@@ -11,7 +9,8 @@ import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await PreferenceManager.ensureInitialized();
+  await StorageService.ensureInitialized();
+  await MmkvService.ensureInitialized();
 
   runApp(ProviderScope(
     observers: [FwdebugFlutter.riverpodObserver],
@@ -24,8 +23,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localeProvider);
-    final themeMode = ref.watch(themeProvider);
+    final locale = ref.watch(LocaleService.localeProvider);
+    final themeMode = ref.watch(ThemeService.themeProvider);
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -55,8 +54,8 @@ class MyApp extends ConsumerWidget {
           supportedLocales: S.delegate.supportedLocales,
           localeListResolutionCallback: (locales, supportedLocales) {
             final locale = locales?.firstOrNull;
-            return LocaleNotifier.supportedLocale(locale, supportedLocales) ??
-                LocaleNotifier.en;
+            return LocaleService.supportedLocale(locale, supportedLocales) ??
+                AppLocale.en.locale;
           },
           localizationsDelegates: const [
             S.delegate,
