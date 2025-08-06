@@ -2,6 +2,7 @@ import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
 import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fwdebug_flutter/fwdebug_flutter.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late AppLifecycleListener _listener;
+
+  @override
+  void initState() {
+    _listener = AppLifecycleListener(
+      onStateChange: (value) {
+        FwdebugFlutter.info(
+            'AppLifecycleListener.onStateChange: ${value.name}');
+      },
+      onResume: () {
+        FwdebugFlutter.info('AppLifecycleListener.onResume');
+      },
+      onInactive: () {
+        FwdebugFlutter.info('AppLifecycleListener.onInactive');
+      },
+      onPause: () {
+        FwdebugFlutter.info('AppLifecycleListener.onPause');
+      },
+      onDetach: () {
+        FwdebugFlutter.info('AppLifecycleListener.onDetach');
+      },
+      onRestart: () {
+        FwdebugFlutter.info('AppLifecycleListener.onRestart');
+      },
+      onShow: () {
+        FwdebugFlutter.info('AppLifecycleListener.onShow');
+      },
+      onHide: () {
+        FwdebugFlutter.info('AppLifecycleListener.onHide');
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _listener.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

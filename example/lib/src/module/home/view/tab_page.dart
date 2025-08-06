@@ -84,7 +84,7 @@ class _TabPageState extends State<TabPage> {
   @override
   void initState() {
     _subscription =
-        EventService.eventBus.on<LocaleChangedEvent>().listen((event) {
+        EventService.instance.eventBus.on<LocaleChangedEvent>().listen((event) {
       FwdebugFlutter.info('LocaleChangedEvent: ${event.locale?.name}');
       final appLocale =
           MmkvService.instance.defaultMMKV().decodeString('appLocale');

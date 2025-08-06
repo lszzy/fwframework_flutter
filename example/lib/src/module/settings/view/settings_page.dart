@@ -44,7 +44,7 @@ class SettingsPage extends ConsumerWidget {
                 MmkvService.instance
                     .defaultMMKV()
                     .encodeString('appLocale', null);
-                EventService.eventBus.fire(LocaleChangedEvent(null));
+                EventService.instance.eventBus.fire(LocaleChangedEvent(null));
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == null,
@@ -57,7 +57,8 @@ class SettingsPage extends ConsumerWidget {
                     .setLocale(AppLocale.en.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.en.locale.toLanguageTag());
-                EventService.eventBus.fire(LocaleChangedEvent(AppLocale.en));
+                EventService.instance.eventBus
+                    .fire(LocaleChangedEvent(AppLocale.en));
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == AppLocale.en.locale,
@@ -70,7 +71,7 @@ class SettingsPage extends ConsumerWidget {
                     .setLocale(AppLocale.zhHans.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.zhHans.locale.toLanguageTag());
-                EventService.eventBus
+                EventService.instance.eventBus
                     .fire(LocaleChangedEvent(AppLocale.zhHans));
                 Navigator.of(context).pop();
               },
@@ -84,7 +85,7 @@ class SettingsPage extends ConsumerWidget {
                     .setLocale(AppLocale.zhHant.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.zhHant.locale.toLanguageTag());
-                EventService.eventBus
+                EventService.instance.eventBus
                     .fire(LocaleChangedEvent(AppLocale.zhHant));
                 Navigator.of(context).pop();
               },
