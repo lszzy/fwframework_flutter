@@ -2,6 +2,7 @@ import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
 import 'package:example/src/module/test/view/test_gorouter_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fwdebug_flutter/fwdebug_flutter.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 class TestPage extends StatefulWidget {
@@ -53,7 +54,11 @@ class _TestPageState extends State<TestPage> {
           );
         },
         itemCount: routeKeys.length,
-      ),
+      ).onAppear(() {
+        FwdebugFlutter.info('TestPage.onAppear');
+      }).onDisappear(() {
+        FwdebugFlutter.info('TestPage.onDisappear');
+      }),
     );
   }
 }

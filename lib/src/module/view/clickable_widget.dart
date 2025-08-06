@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 
+extension ClickableWidgetExtension on Widget {
+  Widget onTap(
+    dynamic Function() onTap, {
+    HitTestBehavior behavior = HitTestBehavior.opaque,
+    int timeout = 60,
+    int? interval,
+  }) {
+    return ClickableWidget(
+      onTap: onTap,
+      behavior: behavior,
+      timeout: timeout,
+      interval: interval,
+      child: this,
+    );
+  }
+}
+
 class ClickableWidget extends StatefulWidget {
   final dynamic Function() onTap;
   final Widget child;

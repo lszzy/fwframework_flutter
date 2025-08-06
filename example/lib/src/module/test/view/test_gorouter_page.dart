@@ -1,5 +1,6 @@
 import 'package:example/src/app/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:fwdebug_flutter/fwdebug_flutter.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 class TestGorouterExtra {
@@ -48,6 +49,10 @@ class TestGorouterPage extends ConsumerWidget {
         },
         itemCount: keys.length,
       ),
-    );
+    ).onAppear(() {
+      FwdebugFlutter.info('TestGorouterPage.onAppear');
+    }).onDisappear(() {
+      FwdebugFlutter.info('TestGorouterPage.onDisappear');
+    });
   }
 }

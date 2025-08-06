@@ -22,27 +22,6 @@ class _HomePageState extends State<HomePage> {
         FwdebugFlutter.info(
             'AppLifecycleListener.onStateChange: ${value.name}');
       },
-      onResume: () {
-        FwdebugFlutter.info('AppLifecycleListener.onResume');
-      },
-      onInactive: () {
-        FwdebugFlutter.info('AppLifecycleListener.onInactive');
-      },
-      onPause: () {
-        FwdebugFlutter.info('AppLifecycleListener.onPause');
-      },
-      onDetach: () {
-        FwdebugFlutter.info('AppLifecycleListener.onDetach');
-      },
-      onRestart: () {
-        FwdebugFlutter.info('AppLifecycleListener.onRestart');
-      },
-      onShow: () {
-        FwdebugFlutter.info('AppLifecycleListener.onShow');
-      },
-      onHide: () {
-        FwdebugFlutter.info('AppLifecycleListener.onHide');
-      },
     );
     super.initState();
   }
@@ -61,11 +40,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: ClickableWidget(
-            onTap: () {
-              AppRouter.router.go(TabPageType.test.path);
-              AppRouter.router.push(TestScreenutilRoute().location);
-            },
-            child: Text(S.of(context).home_welcome)),
+          onTap: () {
+            AppRouter.router.go(TabPageType.test.path);
+            AppRouter.router.push(TestScreenutilRoute().location);
+          },
+          child: Text(S.of(context).home_welcome),
+        ),
       ),
     );
   }
