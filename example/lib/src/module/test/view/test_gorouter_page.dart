@@ -9,7 +9,7 @@ class TestGorouterExtra {
   final String name;
 }
 
-class TestGorouterPage extends ConsumerWidget {
+class TestGorouterPage extends StatelessWidget {
   const TestGorouterPage({
     super.key,
     required this.path,
@@ -30,7 +30,7 @@ class TestGorouterPage extends ConsumerWidget {
       };
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final data = _data;
     final keys = data.keys.toList();
     return Scaffold(

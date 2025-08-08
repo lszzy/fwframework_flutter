@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fwframework_flutter/src/service/storage_service.dart';
 
-class LocaleNotifier extends StateNotifier<Locale?> {
-  LocaleNotifier() : super(LocaleService.locale);
+class LocaleCubit extends Cubit<Locale?> {
+  LocaleCubit() : super(LocaleService.locale);
 
   void setLocale(Locale? locale) {
-    if (state != locale) {
-      state = locale;
-      LocaleService.setLocale(locale);
-    }
+    emit(locale);
+    LocaleService.setLocale(locale);
   }
 }
 
 class LocaleService {
-  static final localeProvider =
-      StateNotifierProvider<LocaleNotifier, Locale?>((ref) {
-    return LocaleNotifier();
-  });
-
   static Locale? get locale {
     final languageTag = StorageService.instance.getString('AppLocale');
     return fromLanguageTag(languageTag);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
-class TestScreenutilPage extends ConsumerWidget {
+class TestScreenutilPage extends StatelessWidget {
   const TestScreenutilPage({super.key});
 
   Map<String, dynamic> _data(BuildContext context) => {
@@ -27,7 +27,7 @@ class TestScreenutilPage extends ConsumerWidget {
       };
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final data = _data(context);
     final keys = data.keys.toList();
     return Scaffold(

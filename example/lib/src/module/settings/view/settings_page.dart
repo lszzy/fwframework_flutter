@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/fwframework_flutter.dart';
 
-class SettingsPage extends ConsumerWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).tabbar_settings),
@@ -19,20 +19,21 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             title: Text(S.of(context).settings_locale),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => _onLocaleTapped(context, ref),
+            onTap: () => _onLocaleTapped(context),
           ),
           ListTile(
             title: Text(S.of(context).settings_theme),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => _onThemeTapped(context, ref),
+            onTap: () => _onThemeTapped(context),
           ),
         ],
       ),
     );
   }
 
-  void _onLocaleTapped(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(LocaleService.localeProvider);
+  void _onLocaleTapped(BuildContext context) {
+    final localeCubit = context.read<LocaleCubit>();
+    final locale = localeCubit.state;
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -40,7 +41,7 @@ class SettingsPage extends ConsumerWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(LocaleService.localeProvider.notifier).setLocale(null);
+                localeCubit.setLocale(null);
                 MmkvService.instance
                     .defaultMMKV()
                     .encodeString('appLocale', null);
@@ -52,9 +53,7 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(LocaleService.localeProvider.notifier)
-                    .setLocale(AppLocale.en.locale);
+                localeCubit.setLocale(AppLocale.en.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.en.locale.toLanguageTag());
                 EventService.instance.eventBus
@@ -66,9 +65,7 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(LocaleService.localeProvider.notifier)
-                    .setLocale(AppLocale.zhHans.locale);
+                localeCubit.setLocale(AppLocale.zhHans.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.zhHans.locale.toLanguageTag());
                 EventService.instance.eventBus
@@ -80,9 +77,7 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(LocaleService.localeProvider.notifier)
-                    .setLocale(AppLocale.zhHant.locale);
+                localeCubit.setLocale(AppLocale.zhHant.locale);
                 MmkvService.instance.defaultMMKV().encodeString(
                     'appLocale', AppLocale.zhHant.locale.toLanguageTag());
                 EventService.instance.eventBus
@@ -98,8 +93,9 @@ class SettingsPage extends ConsumerWidget {
     );
   }
 
-  void _onThemeTapped(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(ThemeService.themeProvider);
+  void _onThemeTapped(BuildContext context) {
+    final themeCubit = context.read<ThemeCubit>();
+    final theme = themeCubit.state;
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -107,9 +103,7 @@ class SettingsPage extends ConsumerWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(ThemeService.themeProvider.notifier)
-                    .setThemeMode(ThemeMode.system);
+                themeCubit.setThemeMode(ThemeMode.system);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.system,
@@ -117,9 +111,7 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(ThemeService.themeProvider.notifier)
-                    .setThemeMode(ThemeMode.light);
+                themeCubit.setThemeMode(ThemeMode.light);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.light,
@@ -127,9 +119,7 @@ class SettingsPage extends ConsumerWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref
-                    .read(ThemeService.themeProvider.notifier)
-                    .setThemeMode(ThemeMode.dark);
+                themeCubit.setThemeMode(ThemeMode.dark);
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.dark,

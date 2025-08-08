@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fwframework_flutter/src/service/storage_service.dart';
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  ThemeNotifier() : super(ThemeService.themeMode);
+class ThemeCubit extends Cubit<ThemeMode> {
+  ThemeCubit() : super(ThemeService.themeMode);
 
   void setThemeMode(ThemeMode themeMode) {
-    state = themeMode;
+    emit(themeMode);
     ThemeService.setThemeMode(themeMode);
   }
 }
 
 class ThemeService {
-  static final themeProvider =
-      StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-    return ThemeNotifier();
-  });
-
   static ThemeMode get themeMode {
     final themeName = StorageService.instance.getString('AppTheme');
     return ThemeMode.values.firstWhere(

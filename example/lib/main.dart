@@ -12,19 +12,20 @@ void main() async {
   await StorageService.ensureInitialized();
   await MmkvService.ensureInitialized();
 
-  runApp(ProviderScope(
-    observers: [FwdebugFlutter.riverpodObserver],
-    child: const MyApp(),
-  ));
+  Bloc.observer = FwdebugFlutter.blocObserver;
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
+    BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
+  ], child: const MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(LocaleService.localeProvider);
-    final themeMode = ref.watch(ThemeService.themeProvider);
+  Widget build(BuildContext context) {
+    final locale = context.watch<LocaleCubit>().state;
+    final themeMode = context.watch<ThemeCubit>().state;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
