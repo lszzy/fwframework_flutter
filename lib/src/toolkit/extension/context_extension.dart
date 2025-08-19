@@ -8,6 +8,12 @@ extension BuildContextExtension on BuildContext {
 
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
+  /// 安全区域(mediaQuery.viewPadding)
+  EdgeInsets get safeAreaInsets => mediaQuery.viewPadding;
+
+  /// 键盘高度(mediaQuery.viewInsets.bottom)
+  double get keyboardHeight => mediaQuery.viewInsets.bottom;
+
   /// 屏幕宽度(mediaQuery.size.width)
   double get screenWidth => ScreenUtil().screenWidth;
 

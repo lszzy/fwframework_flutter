@@ -24,6 +24,9 @@ class TestScreenutilPage extends StatelessWidget {
         'diameter(100)': ScreenUtil().diameter(100),
         'setSp(100)': ScreenUtil().setSp(100),
         'deviceType': ScreenUtil().deviceType(context),
+        'padding': context.mediaQuery.padding,
+        'viewPadding': context.mediaQuery.viewPadding,
+        'viewInsets': context.mediaQuery.viewInsets,
       };
 
   @override
