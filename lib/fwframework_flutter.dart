@@ -4,6 +4,7 @@ export 'src/toolkit/semaphore.dart';
 export 'src/toolkit/extension/context_extension.dart';
 export 'src/toolkit/extension/function_extension.dart';
 export 'src/toolkit/extension/list_extension.dart';
+export 'src/toolkit/extension/map_extension.dart';
 export 'src/toolkit/extension/state_extension.dart';
 export 'src/service/event_service.dart';
 export 'src/service/locale_service.dart';
@@ -20,6 +21,7 @@ export 'src/module/view/keep_alive.dart';
 export 'src/module/view/left_right_box.dart';
 
 export 'package:event_bus/event_bus.dart';
+export 'package:collection/collection.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 export 'package:provider/provider.dart';
