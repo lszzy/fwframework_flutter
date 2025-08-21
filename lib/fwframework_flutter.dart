@@ -19,6 +19,7 @@ export 'src/module/view/clickable_widget.dart';
 export 'src/module/view/exit_app_scope.dart';
 export 'src/module/view/keep_alive.dart';
 export 'src/module/view/left_right_box.dart';
+export 'src/module/view/placeholder_widget.dart';
 
 export 'package:event_bus/event_bus.dart';
 export 'package:collection/collection.dart';
