@@ -1,0 +1,10 @@
+{
+    "tabbar_home": "首頁",
+    "tabbar_test": "測試",
+    "tabbar_settings": "設置",
+    "home_title": "fwframework_flutter 示範",
+    "home_welcome": "你知道我在等你嗎？",
+    "settings_locale": "多語言",
+    "settings_theme": "主題",
+    "settings_system": "系統"
+}

@@ -1,0 +1,10 @@
+{
+    "tabbar_home": "Home",
+    "tabbar_test": "Test",
+    "tabbar_settings": "Settings",
+    "home_title": "fwframework_flutter Demo",
+    "home_welcome": "Do you know that I'm waiting for you?",
+    "settings_locale": "Language",
+    "settings_theme": "Theme",
+    "settings_system": "System"
+}
