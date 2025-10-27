@@ -1,7 +1,7 @@
 name: fwframework_flutter
 description: "Flutter development framework."
 version: 0.0.1
-homepage:
+homepage: https://github.com/lszzy/fwframework_flutter
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
