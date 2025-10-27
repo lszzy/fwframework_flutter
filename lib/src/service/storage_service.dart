@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class StorageService {
   static StorageService get instance {
@@ -22,84 +23,102 @@ class StorageService {
     Map<String, Object?>? cache,
   }) async {
     if (_instance == null) {
-      _preferences = await SharedPreferencesWithCache.create(
+      _sharedPreferences = await SharedPreferencesWithCache.create(
         sharedPreferencesOptions: sharedPreferencesOptions,
         cacheOptions: cacheOptions,
         cache: cache,
       );
+      _secureStorage = const FlutterSecureStorage(
+          aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ));
       _instance = StorageService._();
     }
     return _instance!;
   }
 
-  static SharedPreferencesWithCache? _preferences;
+  static SharedPreferencesWithCache? _sharedPreferences;
 
-  SharedPreferencesWithCache get preferences {
-    return _preferences!;
+  SharedPreferencesWithCache get sharedPreferences {
+    return _sharedPreferences!;
   }
 
   Object? get(String key) {
-    return preferences.get(key);
+    return sharedPreferences.get(key);
   }
 
   bool? getBool(String key) {
-    return preferences.getBool(key);
+    return sharedPreferences.getBool(key);
   }
 
   int? getInt(String key) {
-    return preferences.getInt(key);
+    return sharedPreferences.getInt(key);
   }
 
   double? getDouble(String key) {
-    return preferences.getDouble(key);
+    return sharedPreferences.getDouble(key);
   }
 
   String? getString(String key) {
-    return preferences.getString(key);
+    return sharedPreferences.getString(key);
   }
 
   List<String>? getStringList(String key) {
-    return preferences.getStringList(key);
+    return sharedPreferences.getStringList(key);
   }
 
   /// 设置值到平台缓存，如果类型不支持，会抛出ArgumentError
   Future<void> setValue(String key, Object? value) async {
-    return await preferences.setValue(key, value);
+    return await sharedPreferences.setValue(key, value);
   }
 
   Future<void> setBool(String key, bool? value) async {
     if (value == null) {
-      return await preferences.remove(key);
+      return await sharedPreferences.remove(key);
     }
-    return await preferences.setBool(key, value);
+    return await sharedPreferences.setBool(key, value);
   }
 
   Future<void> setInt(String key, int? value) async {
     if (value == null) {
-      return await preferences.remove(key);
+      return await sharedPreferences.remove(key);
     }
-    return await preferences.setInt(key, value);
+    return await sharedPreferences.setInt(key, value);
   }
 
   Future<void> setDouble(String key, double? value) async {
     if (value == null) {
-      return await preferences.remove(key);
+      return await sharedPreferences.remove(key);
     }
-    return await preferences.setDouble(key, value);
+    return await sharedPreferences.setDouble(key, value);
   }
 
   Future<void> setString(String key, String? value) async {
     if (value == null) {
-      return await preferences.remove(key);
+      return await sharedPreferences.remove(key);
     }
-    return await preferences.setString(key, value);
+    return await sharedPreferences.setString(key, value);
   }
 
   Future<void> setStringList(String key, List<String>? value) async {
     if (value == null) {
-      return await preferences.remove(key);
+      return await sharedPreferences.remove(key);
     }
-    return await preferences.setStringList(key, value);
+    return await sharedPreferences.setStringList(key, value);
+  }
+
+  static FlutterSecureStorage? _secureStorage;
+
+  FlutterSecureStorage get secureStorage {
+    return _secureStorage!;
+  }
+
+  Future<void> setSecureString(String key, String? value) async {
+    await secureStorage.write(key: key, value: value);
+  }
+
+  Future<String?> getSecureString(String key) {
+    return secureStorage.read(key: key);
   }
 }
 
