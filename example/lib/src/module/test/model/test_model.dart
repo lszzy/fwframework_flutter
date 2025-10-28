@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:fwframework_flutter/fwframework_flutter.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:collection/collection.dart';
 
 part 'test_model.g.dart';
 
