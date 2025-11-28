@@ -6,7 +6,7 @@ import 'package:fwframework_flutter/fwframework_flutter.dart';
 part 'app_router.g.dart';
 
 @TypedGoRoute<TestGorouterRoute>(path: '/test/go_router/:path')
-class TestGorouterRoute extends GoRouteData {
+class TestGorouterRoute extends GoRouteData with $TestGorouterRoute {
   const TestGorouterRoute({
     required this.path,
     this.query,
@@ -24,7 +24,7 @@ class TestGorouterRoute extends GoRouteData {
 }
 
 @TypedGoRoute<TestScreenutilRoute>(path: '/test/flutter_screenutil')
-class TestScreenutilRoute extends GoRouteData {
+class TestScreenutilRoute extends GoRouteData with $TestScreenutilRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const TestScreenutilPage();
