@@ -1,5 +1,6 @@
 import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
+import 'package:example/src/library/standard/app_theme.dart';
 import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fwdebug_flutter/fwdebug_flutter.dart';
@@ -44,7 +45,10 @@ class _HomePageState extends State<HomePage> {
             AppRouter.router.go(TabPageType.test.path);
             AppRouter.router.push(TestScreenutilRoute().location);
           },
-          child: Text(S.of(context).home_welcome),
+          child: Text(
+            S.of(context).home_welcome,
+            style: TextStyle(color: context.appTheme.primaryColor),
+          ),
         ),
       ),
     );

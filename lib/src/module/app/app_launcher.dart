@@ -29,6 +29,8 @@ class AppLauncher {
     Size? designSize,
     bool splitScreenMode = false,
     bool minTextAdapt = false,
+    ThemeData? theme,
+    ThemeData? darkTheme,
   }) {
     final locale = context.watch<LocaleCubit>().state;
     final themeMode = context.watch<ThemeCubit>().state;
@@ -41,8 +43,8 @@ class AppLauncher {
           title: routerTitle,
           routerConfig: routerConfig,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(useMaterial3: true),
-          darkTheme: ThemeData.dark(useMaterial3: true),
+          theme: theme ?? ThemeData.light(useMaterial3: true),
+          darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
           themeMode: themeMode,
           builder: FlutterSmartDialog.init(builder: routerBuilder),
           locale: locale,
