@@ -1,6 +1,5 @@
 import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
-import 'package:example/src/library/standard/app_theme.dart';
 import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,10 +33,10 @@ class MyApp extends StatelessWidget {
           },
         ),
         theme: ThemeData.light(useMaterial3: true).copyWith(
-          extensions: [AppTheme.light],
+          extensions: [AppPalette.lightPalette],
         ),
         darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-          extensions: [AppTheme.dark],
+          extensions: [AppPalette.darkPalette],
         ),
         supportedLocales: S.delegate.supportedLocales,
         localizationsDelegates: [
