@@ -108,6 +108,7 @@ class _TabPageState extends State<TabPage> {
         currentIndex: widget.child.currentIndex,
         selectedItemColor: context.appTheme.primaryColor,
         unselectedItemColor: context.appTheme.contentColor,
+        backgroundColor: context.appTheme.bgWhiteColor,
         onTap: (index) {
           widget.child.goBranch(
             index,
