@@ -81,7 +81,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
   final Color bgGrayDarkColor;
 
   @override
-  ThemeExtension<AppTheme> copyWith({
+  AppTheme copyWith({
     Color? primaryColor,
     Color? primaryDarkColor,
     Color? primaryDisabledColor,
@@ -158,7 +158,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
   }
 
   @override
-  ThemeExtension<AppTheme> lerp(ThemeExtension<AppTheme>? other, double t) {
+  AppTheme lerp(AppTheme? other, double t) {
     if (other is! AppTheme) {
       return this;
     }
