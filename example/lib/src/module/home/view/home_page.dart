@@ -36,8 +36,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).home_title),
+        title: Text(
+          S.of(context).home_title,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: Center(
         child: ClickableWidget(
           onTap: () {
@@ -46,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           },
           child: Text(
             S.of(context).home_welcome,
-            style: TextStyle(color: context.appTheme.primaryColor),
+            style: TextStyle(color: context.appTheme.mainColor),
           ),
         ),
       ),

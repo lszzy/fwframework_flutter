@@ -106,6 +106,8 @@ class _TabPageState extends State<TabPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: widget.child.currentIndex,
+        selectedItemColor: context.appTheme.primaryColor,
+        unselectedItemColor: context.appTheme.contentColor,
         onTap: (index) {
           widget.child.goBranch(
             index,

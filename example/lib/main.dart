@@ -33,10 +33,12 @@ class MyApp extends StatelessWidget {
           },
         ),
         theme: ThemeData.light(useMaterial3: true).copyWith(
-          extensions: [AppPalette.lightPalette],
+          splashFactory: NoSplash.splashFactory,
+          extensions: [AppPalette.lightTheme],
         ),
         darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-          extensions: [AppPalette.darkPalette],
+          splashFactory: NoSplash.splashFactory,
+          extensions: [AppPalette.darkTheme],
         ),
         supportedLocales: S.delegate.supportedLocales,
         localizationsDelegates: [

@@ -35,8 +35,13 @@ class _TestPageState extends State<TestPage> {
     final routeKeys = _testRoutes.keys.toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).tabbar_test),
+        title: Text(
+          S.of(context).tabbar_test,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: ListView.builder(
         itemBuilder: (context, index) {
           final routeKey = routeKeys[index];

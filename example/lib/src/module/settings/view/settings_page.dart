@@ -12,8 +12,13 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).tabbar_settings),
+        title: Text(
+          S.of(context).tabbar_settings,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: ListView(
         children: [
           ListTile(
