@@ -36,8 +36,14 @@ class TestScreenutilPage extends StatelessWidget {
     return Scaffold(
       // PreferredSize包裹AppBar自定义局部导航栏高度
       appBar: AppBar(
-        title: const Text('flutter_screenutil'),
+        title: const Text(
+          'flutter_screenutil',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(

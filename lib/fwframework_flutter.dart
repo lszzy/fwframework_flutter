@@ -13,6 +13,8 @@ export 'src/service/storage_service.dart';
 export 'src/service/theme_service.dart';
 export 'src/module/app/app_router.dart';
 export 'src/module/app/app_launcher.dart';
+export 'src/module/app/app_theme.dart';
+export 'src/module/app/app_palette.dart';
 export 'src/module/view/accurate_sized_box.dart';
 export 'src/module/view/after_layout.dart';
 export 'src/module/view/appear_detector.dart';

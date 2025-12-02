@@ -1,6 +1,5 @@
 import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
-import 'package:example/src/library/standard/app_theme.dart';
 import 'package:example/src/module/home/view/tab_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fwdebug_flutter/fwdebug_flutter.dart';
@@ -37,8 +36,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).home_title),
+        title: Text(
+          S.of(context).home_title,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: Center(
         child: ClickableWidget(
           onTap: () {
@@ -47,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           },
           child: Text(
             S.of(context).home_welcome,
-            style: TextStyle(color: context.appTheme.primaryColor),
+            style: TextStyle(color: context.appTheme.mainColor),
           ),
         ),
       ),

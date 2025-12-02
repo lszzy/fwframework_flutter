@@ -35,8 +35,14 @@ class TestGorouterPage extends StatelessWidget {
     final keys = data.keys.toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('go_router'),
+        title: const Text(
+          'go_router',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: context.appTheme.primaryColor,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      backgroundColor: context.appTheme.bgColor,
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(
