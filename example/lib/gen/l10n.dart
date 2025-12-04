@@ -120,6 +120,16 @@ class S {
     );
   }
 
+  /// `Color`
+  String get settings_color {
+    return Intl.message(
+      'Color',
+      name: 'settings_color',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `System`
   String get settings_system {
     return Intl.message(

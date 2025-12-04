@@ -31,6 +31,11 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _onThemeTapped(context),
           ),
+          ListTile(
+            title: Text(S.of(context).settings_color),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _onStyleTapped(context),
+          ),
         ],
       ),
     );
@@ -129,6 +134,60 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: theme == ThemeMode.dark,
               child: const Text('深色'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _onStyleTapped(BuildContext context) {
+    final themeStyleCubit = context.read<ThemeStyleCubit>();
+    final themeStyle = themeStyleCubit.state;
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.normal);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.normal,
+              child: const Text('默认'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.purple);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.purple,
+              child: const Text('霞光紫'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.green);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.green,
+              child: const Text('清翠绿'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.orange);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.orange,
+              child: const Text('暖阳橙'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.blue);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.blue,
+              child: const Text('午夜蓝'),
             ),
           ],
         );

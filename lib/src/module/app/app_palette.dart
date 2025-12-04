@@ -2,15 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/src/module/app/app_theme.dart';
+import 'package:fwframework_flutter/src/service/theme_service.dart';
 
 class AppPalette {
-  static AppTheme lightTheme = lightPalette;
-
-  static AppTheme darkTheme = darkPalette;
-
   static double paletteRatio = 0.6;
 
-  static const AppTheme lightPalette = AppTheme(
+  static AppTheme lightPalette = const AppTheme(
     primaryColor: Color(0xff2979ff),
     primaryDarkColor: Color(0xff2b85e4),
     primaryDisabledColor: Color(0xffa0cfff),
@@ -48,7 +45,7 @@ class AppPalette {
     bgGrayDarkColor: Color(0xff2f343c),
   );
 
-  static const AppTheme darkPalette = AppTheme(
+  static AppTheme darkPalette = const AppTheme(
     primaryColor: Color(0xff8ab4ff),
     primaryDarkColor: Color(0xff5f8dff),
     primaryDisabledColor: Color(0xff3d4f74),
@@ -178,90 +175,120 @@ class AppPalette {
     infoLightColor: const Color(0xff003d66),
   );
 
+  static AppTheme lightTheme(ThemeStyle themeStyle) {
+    switch (themeStyle) {
+      case ThemeStyle.purple:
+        return purplePalette;
+      case ThemeStyle.green:
+        return greenPalette;
+      case ThemeStyle.orange:
+        return orangePalette;
+      case ThemeStyle.blue:
+        return bluePalette;
+      default:
+        return lightPalette;
+    }
+  }
+
+  static AppTheme darkTheme(ThemeStyle themeStyle) {
+    switch (themeStyle) {
+      case ThemeStyle.purple:
+        return paletteTheme(light: purplePalette);
+      case ThemeStyle.green:
+        return paletteTheme(light: greenPalette);
+      case ThemeStyle.orange:
+        return paletteTheme(light: orangePalette);
+      case ThemeStyle.blue:
+        return paletteTheme(light: bluePalette);
+      default:
+        return darkPalette;
+    }
+  }
+
   static AppTheme paletteTheme({
-    required AppTheme lightTheme,
-    AppTheme? darkTheme,
+    required AppTheme light,
+    AppTheme? dark,
   }) {
-    final paletteTheme = darkTheme ?? darkPalette;
+    final paletteTheme = dark ?? darkPalette;
     return paletteTheme.copyWith(
       primaryColor: paletteColor(
-        light: lightTheme.primaryColor,
+        light: light.primaryColor,
         dark: paletteTheme.primaryColor,
       ),
       primaryDarkColor: paletteColor(
-        light: lightTheme.primaryDarkColor,
+        light: light.primaryDarkColor,
         dark: paletteTheme.primaryDarkColor,
       ),
       primaryDisabledColor: paletteColor(
-        light: lightTheme.primaryDisabledColor,
+        light: light.primaryDisabledColor,
         dark: paletteTheme.primaryDisabledColor,
       ),
       primaryLightColor: paletteColor(
-        light: lightTheme.primaryLightColor,
+        light: light.primaryLightColor,
         dark: paletteTheme.primaryLightColor,
       ),
       successColor: paletteColor(
-        light: lightTheme.successColor,
+        light: light.successColor,
         dark: paletteTheme.successColor,
       ),
       successDarkColor: paletteColor(
-        light: lightTheme.successDarkColor,
+        light: light.successDarkColor,
         dark: paletteTheme.successDarkColor,
       ),
       successDisabledColor: paletteColor(
-        light: lightTheme.successDisabledColor,
+        light: light.successDisabledColor,
         dark: paletteTheme.successDisabledColor,
       ),
       successLightColor: paletteColor(
-        light: lightTheme.successLightColor,
+        light: light.successLightColor,
         dark: paletteTheme.successLightColor,
       ),
       warningColor: paletteColor(
-        light: lightTheme.warningColor,
+        light: light.warningColor,
         dark: paletteTheme.warningColor,
       ),
       warningDarkColor: paletteColor(
-        light: lightTheme.warningDarkColor,
+        light: light.warningDarkColor,
         dark: paletteTheme.warningDarkColor,
       ),
       warningDisabledColor: paletteColor(
-        light: lightTheme.warningDisabledColor,
+        light: light.warningDisabledColor,
         dark: paletteTheme.warningDisabledColor,
       ),
       warningLightColor: paletteColor(
-        light: lightTheme.warningLightColor,
+        light: light.warningLightColor,
         dark: paletteTheme.warningLightColor,
       ),
       errorColor: paletteColor(
-        light: lightTheme.errorColor,
+        light: light.errorColor,
         dark: paletteTheme.errorColor,
       ),
       errorDarkColor: paletteColor(
-        light: lightTheme.errorDarkColor,
+        light: light.errorDarkColor,
         dark: paletteTheme.errorDarkColor,
       ),
       errorDisabledColor: paletteColor(
-        light: lightTheme.errorDisabledColor,
+        light: light.errorDisabledColor,
         dark: paletteTheme.errorDisabledColor,
       ),
       errorLightColor: paletteColor(
-        light: lightTheme.errorLightColor,
+        light: light.errorLightColor,
         dark: paletteTheme.errorLightColor,
       ),
       infoColor: paletteColor(
-        light: lightTheme.infoColor,
+        light: light.infoColor,
         dark: paletteTheme.infoColor,
       ),
       infoDarkColor: paletteColor(
-        light: lightTheme.infoDarkColor,
+        light: light.infoDarkColor,
         dark: paletteTheme.infoDarkColor,
       ),
       infoDisabledColor: paletteColor(
-        light: lightTheme.infoDisabledColor,
+        light: light.infoDisabledColor,
         dark: paletteTheme.infoDisabledColor,
       ),
       infoLightColor: paletteColor(
-        light: lightTheme.infoLightColor,
+        light: light.infoLightColor,
         dark: paletteTheme.infoLightColor,
       ),
     );
