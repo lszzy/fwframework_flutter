@@ -32,20 +32,6 @@ class MyApp extends StatelessWidget {
             return FwdebugFlutter.inspector(child: child!);
           },
         ),
-        theme: ThemeData.light(useMaterial3: true).copyWith(
-          splashFactory: NoSplash.splashFactory,
-          extensions: [
-            AppPalette.lightTheme,
-            // AppPalette.orangePalette,
-          ],
-        ),
-        darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-          splashFactory: NoSplash.splashFactory,
-          extensions: [
-            AppPalette.darkTheme,
-            // AppPalette.paletteTheme(lightTheme: AppPalette.orangePalette),
-          ],
-        ),
         supportedLocales: S.delegate.supportedLocales,
         localizationsDelegates: [
           S.delegate,

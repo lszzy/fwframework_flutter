@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_locale": MessageLookupByLibrary.simpleMessage("Language"),
         "settings_system": MessageLookupByLibrary.simpleMessage("System"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "settings_color": MessageLookupByLibrary.simpleMessage("Color"),
         "tabbar_home": MessageLookupByLibrary.simpleMessage("Home"),
         "tabbar_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "tabbar_test": MessageLookupByLibrary.simpleMessage("Test")

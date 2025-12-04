@@ -17,6 +17,7 @@ class AppLauncher {
     runApp(MultiBlocProvider(providers: [
       BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
       BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
+      BlocProvider<ThemeStyleCubit>(create: (_) => ThemeStyleCubit()),
     ], child: app));
   }
 
@@ -35,6 +36,7 @@ class AppLauncher {
   }) {
     final locale = context.watch<LocaleCubit>().state;
     final themeMode = context.watch<ThemeCubit>().state;
+    final themeStyle = context.watch<ThemeStyleCubit>().state;
     return ScreenUtilInit(
       designSize: designSize ?? const Size(375, 812),
       minTextAdapt: minTextAdapt,
@@ -46,11 +48,13 @@ class AppLauncher {
           debugShowCheckedModeBanner: false,
           theme: theme ??
               ThemeData.light(useMaterial3: true).copyWith(
-                extensions: [AppPalette.lightTheme],
+                splashFactory: NoSplash.splashFactory,
+                extensions: [AppPalette.lightTheme(themeStyle)],
               ),
           darkTheme: darkTheme ??
               ThemeData.dark(useMaterial3: true).copyWith(
-                extensions: [AppPalette.darkTheme],
+                splashFactory: NoSplash.splashFactory,
+                extensions: [AppPalette.darkTheme(themeStyle)],
               ),
           themeMode: themeMode,
           builder: FlutterSmartDialog.init(builder: routerBuilder),

@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_locale": MessageLookupByLibrary.simpleMessage("多語言"),
         "settings_system": MessageLookupByLibrary.simpleMessage("系統"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("主題"),
+        "settings_color": MessageLookupByLibrary.simpleMessage("顏色"),
         "tabbar_home": MessageLookupByLibrary.simpleMessage("首頁"),
         "tabbar_settings": MessageLookupByLibrary.simpleMessage("設置"),
         "tabbar_test": MessageLookupByLibrary.simpleMessage("測試")

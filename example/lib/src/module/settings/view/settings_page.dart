@@ -31,6 +31,11 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _onThemeTapped(context),
           ),
+          ListTile(
+            title: Text(S.of(context).settings_color),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _onStyleTapped(context),
+          ),
         ],
       ),
     );
@@ -54,7 +59,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == null,
-              child: Text(S.of(context).settings_system),
+              child: Text(
+                S.of(context).settings_system,
+                style: TextStyle(
+                  color: locale == null
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -66,7 +78,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == AppLocale.en.locale,
-              child: Text(AppLocale.en.name),
+              child: Text(
+                AppLocale.en.name,
+                style: TextStyle(
+                  color: locale == AppLocale.en.locale
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -78,7 +97,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == AppLocale.zhHans.locale,
-              child: Text(AppLocale.zhHans.name),
+              child: Text(
+                AppLocale.zhHans.name,
+                style: TextStyle(
+                  color: locale == AppLocale.zhHans.locale
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -90,7 +116,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: locale == AppLocale.zhHant.locale,
-              child: Text(AppLocale.zhHant.name),
+              child: Text(
+                AppLocale.zhHant.name,
+                style: TextStyle(
+                  color: locale == AppLocale.zhHant.locale
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
           ],
         );
@@ -112,7 +145,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.system,
-              child: Text(S.of(context).settings_system),
+              child: Text(
+                S.of(context).settings_system,
+                style: TextStyle(
+                  color: theme == ThemeMode.system
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -120,7 +160,14 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.light,
-              child: const Text('浅色'),
+              child: Text(
+                '浅色',
+                style: TextStyle(
+                  color: theme == ThemeMode.light
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -128,7 +175,103 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               isDefaultAction: theme == ThemeMode.dark,
-              child: const Text('深色'),
+              child: Text(
+                '深色',
+                style: TextStyle(
+                  color: theme == ThemeMode.dark
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _onStyleTapped(BuildContext context) {
+    final themeStyleCubit = context.read<ThemeStyleCubit>();
+    final themeStyle = themeStyleCubit.state;
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.normal);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.normal,
+              child: Text(
+                '默认',
+                style: TextStyle(
+                  color: themeStyle == ThemeStyle.normal
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.purple);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.purple,
+              child: Text(
+                '霞光紫',
+                style: TextStyle(
+                  color: themeStyle == ThemeStyle.purple
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.green);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.green,
+              child: Text(
+                '清翠绿',
+                style: TextStyle(
+                  color: themeStyle == ThemeStyle.green
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.orange);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.orange,
+              child: Text(
+                '暖阳橙',
+                style: TextStyle(
+                  color: themeStyle == ThemeStyle.orange
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                themeStyleCubit.setThemeStyle(ThemeStyle.blue);
+                Navigator.of(context).pop();
+              },
+              isDefaultAction: themeStyle == ThemeStyle.blue,
+              child: Text(
+                '午夜蓝',
+                style: TextStyle(
+                  color: themeStyle == ThemeStyle.blue
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+              ),
             ),
           ],
         );

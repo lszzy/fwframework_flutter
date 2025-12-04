@@ -6,5 +6,6 @@
     "home_welcome": "Do you know that I'm waiting for you?",
     "settings_locale": "Language",
     "settings_theme": "Theme",
+    "settings_color": "Color",
     "settings_system": "System"
 }
