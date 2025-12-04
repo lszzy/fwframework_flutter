@@ -5,8 +5,6 @@ import 'package:fwframework_flutter/src/module/app/app_theme.dart';
 import 'package:fwframework_flutter/src/service/theme_service.dart';
 
 class AppPalette {
-  static double paletteRatio = 0.6;
-
   static AppTheme lightPalette = const AppTheme(
     primaryColor: Color(0xff2979ff),
     primaryDarkColor: Color(0xff2b85e4),
@@ -174,6 +172,8 @@ class AppPalette {
     infoDisabledColor: const Color(0xff4fc3f7),
     infoLightColor: const Color(0xff003d66),
   );
+
+  static double paletteRatio = 0.6;
 
   static AppTheme lightTheme(ThemeStyle themeStyle) {
     switch (themeStyle) {
