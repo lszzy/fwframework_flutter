@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Add theme style.
+
 ## 0.0.3
 
 * Add palette component.
