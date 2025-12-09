@@ -1,3 +1,4 @@
+import 'package:example/gen/l10n.dart';
 import 'package:flutter/material.dart';
 
 enum AppLocale {
@@ -9,4 +10,10 @@ enum AppLocale {
 
   final String name;
   final Locale locale;
+}
+
+extension AppLocaleExtension on BuildContext {
+  S get s {
+    return S.of(this);
+  }
 }
