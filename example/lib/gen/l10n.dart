@@ -120,11 +120,81 @@ class S {
     );
   }
 
+  /// `Light`
+  String get settings_light {
+    return Intl.message(
+      'Light',
+      name: 'settings_light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get settings_dark {
+    return Intl.message(
+      'Dark',
+      name: 'settings_dark',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Color`
   String get settings_color {
     return Intl.message(
       'Color',
       name: 'settings_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default`
+  String get settings_default {
+    return Intl.message(
+      'Default',
+      name: 'settings_default',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purple`
+  String get settings_purple {
+    return Intl.message(
+      'Purple',
+      name: 'settings_purple',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Green`
+  String get settings_green {
+    return Intl.message(
+      'Green',
+      name: 'settings_green',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orange`
+  String get settings_orange {
+    return Intl.message(
+      'Orange',
+      name: 'settings_orange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blue`
+  String get settings_blue {
+    return Intl.message(
+      'Blue',
+      name: 'settings_blue',
       desc: '',
       args: [],
     );

@@ -33,6 +33,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
     required this.maskColor,
     required this.shadowColor,
     required this.bgColor,
+    required this.bgTableColor,
+    required this.bgCellColor,
     required this.bgWhiteColor,
     required this.bgBlackColor,
     required this.bgGrayLightColor,
@@ -75,6 +77,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
   final Color maskColor;
   final Color shadowColor;
   final Color bgColor;
+  final Color bgTableColor;
+  final Color bgCellColor;
   final Color bgWhiteColor;
   final Color bgBlackColor;
   final Color bgGrayLightColor;
@@ -113,6 +117,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
     Color? maskColor,
     Color? shadowColor,
     Color? bgColor,
+    Color? bgTableColor,
+    Color? bgCellColor,
     Color? bgWhiteColor,
     Color? bgBlackColor,
     Color? bgGrayLightColor,
@@ -150,6 +156,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
       maskColor: maskColor ?? this.maskColor,
       shadowColor: shadowColor ?? this.shadowColor,
       bgColor: bgColor ?? this.bgColor,
+      bgTableColor: bgTableColor ?? this.bgTableColor,
+      bgCellColor: bgCellColor ?? this.bgCellColor,
       bgWhiteColor: bgWhiteColor ?? this.bgWhiteColor,
       bgBlackColor: bgBlackColor ?? this.bgBlackColor,
       bgGrayLightColor: bgGrayLightColor ?? this.bgGrayLightColor,
@@ -251,6 +259,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
       maskColor: Color.lerp(maskColor, other.maskColor, t)!,
       shadowColor: Color.lerp(shadowColor, other.shadowColor, t)!,
       bgColor: Color.lerp(bgColor, other.bgColor, t)!,
+      bgTableColor: Color.lerp(bgTableColor, other.bgTableColor, t)!,
+      bgCellColor: Color.lerp(bgCellColor, other.bgCellColor, t)!,
       bgWhiteColor: Color.lerp(bgWhiteColor, other.bgWhiteColor, t)!,
       bgBlackColor: Color.lerp(bgBlackColor, other.bgBlackColor, t)!,
       bgGrayLightColor: Color.lerp(
@@ -308,6 +318,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
         other.maskColor == maskColor &&
         other.shadowColor == shadowColor &&
         other.bgColor == bgColor &&
+        other.bgTableColor == bgTableColor &&
+        other.bgCellColor == bgCellColor &&
         other.bgWhiteColor == bgWhiteColor &&
         other.bgBlackColor == bgBlackColor &&
         other.bgGrayLightColor == bgGrayLightColor &&
@@ -349,6 +361,8 @@ class AppTheme extends ThemeExtension<AppTheme> {
       maskColor,
       shadowColor,
       bgColor,
+      bgTableColor,
+      bgCellColor,
       bgWhiteColor,
       bgBlackColor,
       bgGrayLightColor,

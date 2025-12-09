@@ -161,7 +161,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: theme == ThemeMode.light,
               child: Text(
-                '浅色',
+                context.s.settings_light,
                 style: TextStyle(
                   color: theme == ThemeMode.light
                       ? context.appTheme.primaryColor
@@ -176,7 +176,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: theme == ThemeMode.dark,
               child: Text(
-                '深色',
+                context.s.settings_dark,
                 style: TextStyle(
                   color: theme == ThemeMode.dark
                       ? context.appTheme.primaryColor
@@ -205,7 +205,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: themeStyle == ThemeStyle.normal,
               child: Text(
-                '默认',
+                context.s.settings_default,
                 style: TextStyle(
                   color: themeStyle == ThemeStyle.normal
                       ? context.appTheme.primaryColor
@@ -220,7 +220,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: themeStyle == ThemeStyle.purple,
               child: Text(
-                '霞光紫',
+                context.s.settings_purple,
                 style: TextStyle(
                   color: themeStyle == ThemeStyle.purple
                       ? context.appTheme.primaryColor
@@ -235,7 +235,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: themeStyle == ThemeStyle.green,
               child: Text(
-                '清翠绿',
+                context.s.settings_green,
                 style: TextStyle(
                   color: themeStyle == ThemeStyle.green
                       ? context.appTheme.primaryColor
@@ -250,7 +250,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: themeStyle == ThemeStyle.orange,
               child: Text(
-                '暖阳橙',
+                context.s.settings_orange,
                 style: TextStyle(
                   color: themeStyle == ThemeStyle.orange
                       ? context.appTheme.primaryColor
@@ -265,7 +265,7 @@ class SettingsPage extends StatelessWidget {
               },
               isDefaultAction: themeStyle == ThemeStyle.blue,
               child: Text(
-                '午夜蓝',
+                context.s.settings_blue,
                 style: TextStyle(
                   color: themeStyle == ThemeStyle.blue
                       ? context.appTheme.primaryColor

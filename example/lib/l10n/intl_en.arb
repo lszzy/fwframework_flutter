@@ -6,6 +6,13 @@
     "home_welcome": "Do you know that I'm waiting for you?",
     "settings_locale": "Language",
     "settings_theme": "Theme",
+    "settings_light": "Light",
+    "settings_dark": "Dark",
     "settings_color": "Color",
+    "settings_default": "Default",
+    "settings_purple": "Purple",
+    "settings_green": "Green",
+    "settings_orange": "Orange",
+    "settings_blue": "Blue",
     "settings_system": "System"
 }

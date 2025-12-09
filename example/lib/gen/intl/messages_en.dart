@@ -26,10 +26,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("fwframework_flutter Demo"),
         "home_welcome": MessageLookupByLibrary.simpleMessage(
             "Do you know that I\'m waiting for you?"),
+        "settings_blue": MessageLookupByLibrary.simpleMessage("Blue"),
+        "settings_color": MessageLookupByLibrary.simpleMessage("Color"),
+        "settings_dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "settings_default": MessageLookupByLibrary.simpleMessage("Default"),
+        "settings_green": MessageLookupByLibrary.simpleMessage("Green"),
+        "settings_light": MessageLookupByLibrary.simpleMessage("Light"),
         "settings_locale": MessageLookupByLibrary.simpleMessage("Language"),
+        "settings_orange": MessageLookupByLibrary.simpleMessage("Orange"),
+        "settings_purple": MessageLookupByLibrary.simpleMessage("Purple"),
         "settings_system": MessageLookupByLibrary.simpleMessage("System"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "settings_color": MessageLookupByLibrary.simpleMessage("Color"),
         "tabbar_home": MessageLookupByLibrary.simpleMessage("Home"),
         "tabbar_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "tabbar_test": MessageLookupByLibrary.simpleMessage("Test")

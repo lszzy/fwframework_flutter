@@ -25,10 +25,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_title":
             MessageLookupByLibrary.simpleMessage("fwframework_flutter 演示"),
         "home_welcome": MessageLookupByLibrary.simpleMessage("你知道我在等你吗？"),
+        "settings_blue": MessageLookupByLibrary.simpleMessage("蓝色"),
+        "settings_color": MessageLookupByLibrary.simpleMessage("颜色"),
+        "settings_dark": MessageLookupByLibrary.simpleMessage("深色"),
+        "settings_default": MessageLookupByLibrary.simpleMessage("默认"),
+        "settings_green": MessageLookupByLibrary.simpleMessage("绿色"),
+        "settings_light": MessageLookupByLibrary.simpleMessage("浅色"),
         "settings_locale": MessageLookupByLibrary.simpleMessage("多语言"),
+        "settings_orange": MessageLookupByLibrary.simpleMessage("橙色"),
+        "settings_purple": MessageLookupByLibrary.simpleMessage("紫色"),
         "settings_system": MessageLookupByLibrary.simpleMessage("系统"),
         "settings_theme": MessageLookupByLibrary.simpleMessage("主题"),
-        "settings_color": MessageLookupByLibrary.simpleMessage("颜色"),
         "tabbar_home": MessageLookupByLibrary.simpleMessage("首页"),
         "tabbar_settings": MessageLookupByLibrary.simpleMessage("设置"),
         "tabbar_test": MessageLookupByLibrary.simpleMessage("测试")
