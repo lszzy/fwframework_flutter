@@ -41,11 +41,13 @@ class ThemeService {
     StorageService.instance.setString('AppTheme', themeMode.name);
   }
 
+  static ThemeStyle defaultStyle = ThemeStyle.normal;
+
   static ThemeStyle get themeStyle {
     final themeStyle = StorageService.instance.getString('AppStyle');
     return ThemeStyle.values.firstWhere(
       (e) => e.name == themeStyle,
-      orElse: () => ThemeStyle.normal,
+      orElse: () => defaultStyle,
     );
   }
 

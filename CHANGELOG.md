@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 0.0.5
+
+* Add table color.
+
 ## 0.0.4
 
 * Add theme style.
