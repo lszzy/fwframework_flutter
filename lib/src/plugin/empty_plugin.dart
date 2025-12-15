@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class EmptyPluginInterface {
@@ -32,8 +33,17 @@ class EmptyPlugin implements EmptyPluginInterface {
     String? button,
     VoidCallback? action,
   }) {
-    // TODO: implement emptyWidget
-    throw UnimplementedError();
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (image != null) image,
+        ],
+      ),
+    );
   }
 }
 

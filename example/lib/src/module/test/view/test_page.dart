@@ -1,3 +1,4 @@
+import 'package:example/gen/assets.gen.dart';
 import 'package:example/gen/l10n.dart';
 import 'package:example/src/app/app_router.dart';
 import 'package:example/src/module/test/view/test_gorouter_page.dart';
@@ -14,6 +15,7 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   late final Map<String, dynamic> _testRoutes;
+  bool showsEmpty = false;
 
   @override
   void initState() {
@@ -42,13 +44,17 @@ class _TestPageState extends State<TestPage> {
           },
         );
       },
+      'show_empty': () {
+        setStateIfMounted(() {
+          showsEmpty = true;
+        });
+      },
     };
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final routeKeys = _testRoutes.keys.toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -58,28 +64,47 @@ class _TestPageState extends State<TestPage> {
         backgroundColor: context.appTheme.primaryColor,
       ),
       backgroundColor: context.appTheme.bgColor,
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final routeKey = routeKeys[index];
-          return ListTile(
-            title: Text(routeKey),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              final route = _testRoutes[routeKey];
-              if (route is Function) {
-                route();
-              } else {
-                AppRouter.router.push(_testRoutes[routeKey]);
-              }
-            },
-          );
-        },
-        itemCount: routeKeys.length,
-      ).onAppear(() {
-        FwdebugFlutter.info('TestPage.onAppear');
-      }).onDisappear(() {
-        FwdebugFlutter.info('TestPage.onDisappear');
-      }),
+      body: showsEmpty ? _buildEmpty(context) : _buildBody(context),
     );
+  }
+
+  Widget _buildEmpty(BuildContext context) {
+    return context.emptyWidget(
+      text: "This is text",
+      detail: "Text is detail",
+      image: AppAssets.images.test.image(),
+      button: "Refresh",
+      action: () {
+        setStateIfMounted(() {
+          showsEmpty = false;
+        });
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final routeKeys = _testRoutes.keys.toList();
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        final routeKey = routeKeys[index];
+        return ListTile(
+          title: Text(routeKey),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            final route = _testRoutes[routeKey];
+            if (route is Function) {
+              route();
+            } else {
+              AppRouter.router.push(_testRoutes[routeKey]);
+            }
+          },
+        );
+      },
+      itemCount: routeKeys.length,
+    ).onAppear(() {
+      FwdebugFlutter.info('TestPage.onAppear');
+    }).onDisappear(() {
+      FwdebugFlutter.info('TestPage.onDisappear');
+    });
   }
 }
