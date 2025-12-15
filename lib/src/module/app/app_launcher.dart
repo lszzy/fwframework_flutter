@@ -6,7 +6,6 @@ import 'package:fwframework_flutter/src/service/theme_service.dart';
 import 'package:fwframework_flutter/src/module/app/app_palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class AppLauncher {
   static void run(Widget app) async {
@@ -57,7 +56,7 @@ class AppLauncher {
                 extensions: [AppPalette.darkTheme(themeStyle)],
               ),
           themeMode: themeMode,
-          builder: FlutterSmartDialog.init(builder: routerBuilder),
+          builder: routerBuilder,
           locale: locale,
           supportedLocales: supportedLocales,
           localeListResolutionCallback: (locales, supportedLocales) {

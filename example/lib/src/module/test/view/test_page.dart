@@ -26,6 +26,22 @@ class _TestPageState extends State<TestPage> {
         ).push(context);
       },
       'flutter_screenutil': TestScreenutilRoute().location,
+      'show_loading': () {
+        context.showLoading();
+        Future.delayed(const Duration(seconds: 2)).then((_) {
+          if (mounted) {
+            context.hideLoading();
+          }
+        });
+      },
+      'show_toast': () {
+        context.showToast(
+          '我是Toast消息',
+          completion: () {
+            FwdebugFlutter.debug('Toast消息已隐藏');
+          },
+        );
+      },
     };
     super.initState();
   }

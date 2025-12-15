@@ -23,6 +23,7 @@ export 'src/module/view/exit_app_scope.dart';
 export 'src/module/view/keep_alive.dart';
 export 'src/module/view/left_right_box.dart';
 export 'src/module/view/placeholder_widget.dart';
+export 'src/plugin/toast_plugin.dart';
 
 export 'package:event_bus/event_bus.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';

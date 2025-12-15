@@ -8,6 +8,7 @@ import 'package:fwframework_flutter/fwframework_flutter.dart';
 
 void main() async {
   Bloc.observer = FwdebugFlutter.blocObserver;
+  SmartDialog.config.toast = SmartConfigToast(alignment: Alignment.center);
   AppLauncher.run(const MyApp());
 }
 
