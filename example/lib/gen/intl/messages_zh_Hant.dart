@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "action_cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "action_confirm": MessageLookupByLibrary.simpleMessage("確定"),
         "home_title":
             MessageLookupByLibrary.simpleMessage("fwframework_flutter 示範"),
         "home_welcome": MessageLookupByLibrary.simpleMessage("你知道我在等你嗎？"),

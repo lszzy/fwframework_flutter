@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.1
+
+* Fix alert plugin context.
+
 ## 0.1.0
 
 * Add alert plugin.
