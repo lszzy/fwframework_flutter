@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/widgets.dart';
 
 abstract class AlertPluginInterface {
@@ -8,7 +6,7 @@ abstract class AlertPluginInterface {
     String? title,
     String? message,
     List<String>? buttons,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   });
@@ -30,7 +28,7 @@ abstract class AlertPluginInterface {
     String? text,
     String? hintText,
     String? confirmButton,
-    Void Function(String text)? confirmAction,
+    Function(String text)? confirmAction,
     String? cancelButton,
     VoidCallback? cancelAction,
   });
@@ -41,7 +39,7 @@ abstract class AlertPluginInterface {
     String? message,
     List<String>? buttons,
     int currentIndex = -1,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   });
@@ -54,8 +52,8 @@ class AlertPlugin implements AlertPluginInterface {
   }
 
   static AlertPluginInterface _instance = AlertPlugin();
-  String Function(BuildContext context)? cancelButton;
-  String Function(BuildContext context)? confirmButton;
+  String Function(BuildContext context)? cancelButton = (context) => "Cancel";
+  String Function(BuildContext context)? confirmButton = (context) => "Confirm";
 
   @override
   void showAlert({
@@ -63,7 +61,7 @@ class AlertPlugin implements AlertPluginInterface {
     String? title,
     String? message,
     List<String>? buttons,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
@@ -91,7 +89,7 @@ class AlertPlugin implements AlertPluginInterface {
     String? text,
     String? hintText,
     String? confirmButton,
-    Void Function(String text)? confirmAction,
+    Function(String text)? confirmAction,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
@@ -105,7 +103,7 @@ class AlertPlugin implements AlertPluginInterface {
     String? message,
     List<String>? buttons,
     int currentIndex = -1,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
@@ -118,7 +116,7 @@ extension AlertPluginExtension on BuildContext {
     String? title,
     String? message,
     List<String>? buttons,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
@@ -157,7 +155,7 @@ extension AlertPluginExtension on BuildContext {
     String? text,
     String? hintText,
     String? confirmButton,
-    Void Function(String text)? confirmAction,
+    Function(String text)? confirmAction,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
@@ -179,7 +177,7 @@ extension AlertPluginExtension on BuildContext {
     String? message,
     List<String>? buttons,
     int currentIndex = -1,
-    Void Function(int index)? action,
+    Function(int index)? action,
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {

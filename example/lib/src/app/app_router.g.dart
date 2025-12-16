@@ -9,6 +9,7 @@ part of 'app_router.dart';
 List<RouteBase> get $appRoutes => [
       $testGorouterRoute,
       $testScreenutilRoute,
+      $testPluginRoute,
     ];
 
 RouteBase get $testGorouterRoute => GoRouteData.$route(
@@ -61,6 +62,33 @@ mixin $TestScreenutilRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/test/flutter_screenutil',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $testPluginRoute => GoRouteData.$route(
+      path: '/test/plugin',
+      factory: $TestPluginRoute._fromState,
+    );
+
+mixin $TestPluginRoute on GoRouteData {
+  static TestPluginRoute _fromState(GoRouterState state) => TestPluginRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/test/plugin',
       );
 
   @override
