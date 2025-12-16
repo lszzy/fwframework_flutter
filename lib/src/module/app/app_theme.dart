@@ -369,6 +369,22 @@ class AppTheme extends ThemeExtension<AppTheme> {
       bgGrayDarkColor,
     ]);
   }
+
+  TextStyle textStyle({
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    String? fontFamily,
+  }) {
+    return TextStyle(
+      color: color ?? mainColor,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      fontFamily: fontFamily,
+    );
+  }
 }
 
 extension AppThemeBuildContext on BuildContext {
