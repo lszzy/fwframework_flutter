@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fwframework_flutter/src/module/app/app_theme.dart';
 
 abstract class AlertPluginInterface {
@@ -18,6 +19,18 @@ abstract class AlertPluginInterface {
     String? message,
     String? confirmButton,
     VoidCallback? confirmAction,
+    String? cancelButton,
+    VoidCallback? cancelAction,
+  });
+
+  void showPrompt({
+    required BuildContext context,
+    String? title,
+    String? message,
+    String? text,
+    String? hintText,
+    String? confirmButton,
+    Function(String text)? confirmAction,
     String? cancelButton,
     VoidCallback? cancelAction,
   });
@@ -44,6 +57,8 @@ class AlertPlugin implements AlertPluginInterface {
   String Function(BuildContext context)? cancelButton = (context) => "Cancel";
   String Function(BuildContext context)? confirmButton = (context) => "Confirm";
   TextStyle? Function(BuildContext context, bool isDefault)? alertStyle;
+  Widget Function(BuildContext context, TextEditingController controller,
+      String? hintText)? textFieldBuilder;
   bool showsSheetCancel = true;
 
   @override
@@ -137,6 +152,89 @@ class AlertPlugin implements AlertPluginInterface {
       },
       cancelButton: cancelButton,
       cancelAction: cancelAction,
+    );
+  }
+
+  @override
+  void showPrompt({
+    required BuildContext context,
+    String? title,
+    String? message,
+    String? text,
+    String? hintText,
+    String? confirmButton,
+    Function(String text)? confirmAction,
+    String? cancelButton,
+    VoidCallback? cancelAction,
+  }) {
+    if (cancelButton == null && this.cancelButton != null) {
+      cancelButton = this.cancelButton!(context);
+    }
+    if (confirmButton == null && this.confirmButton != null) {
+      confirmButton = this.confirmButton!(context);
+    }
+
+    List<Widget> actions = [];
+    if (cancelButton != null && cancelButton.isNotEmpty) {
+      final cancel = CupertinoDialogAction(
+        onPressed: () {
+          Navigator.pop(context);
+          if (cancelAction != null) cancelAction();
+        },
+        isDefaultAction: false,
+        textStyle: (alertStyle != null ? alertStyle!(context, false) : null) ??
+            TextStyle(color: context.appTheme.mainColor),
+        child: Text(cancelButton),
+      );
+      if (actions.length == 1) {
+        actions.insert(0, cancel);
+      } else {
+        actions.add(cancel);
+      }
+    }
+
+    final controller = TextEditingController();
+    controller.text = text ?? '';
+    if (confirmButton != null && confirmButton.isNotEmpty) {
+      actions.add(CupertinoDialogAction(
+        onPressed: () {
+          Navigator.pop(context);
+          if (confirmAction != null) {
+            confirmAction(controller.text.trim());
+          }
+        },
+        isDefaultAction: true,
+        textStyle: (alertStyle != null ? alertStyle!(context, true) : null) ??
+            TextStyle(color: context.appTheme.primaryColor),
+        child: Text(confirmButton),
+      ));
+    }
+
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: title != null ? Text(title) : null,
+          content: Column(
+            children: [
+              if (message != null) Text(message),
+              textFieldBuilder != null
+                  ? textFieldBuilder!(context, controller, hintText)
+                  : TextField(
+                      controller: controller,
+                      autofocus: true,
+                      cursorColor: context.appTheme.primaryColor,
+                      style: TextStyle(color: context.appTheme.mainColor),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: hintText,
+                      ),
+                    ),
+            ],
+          ),
+          actions: actions,
+        );
+      },
     );
   }
 
@@ -241,6 +339,29 @@ extension AlertPluginExtension on BuildContext {
       context: this,
       title: title,
       message: message,
+      confirmButton: confirmButton,
+      confirmAction: confirmAction,
+      cancelButton: cancelButton,
+      cancelAction: cancelAction,
+    );
+  }
+
+  void showPrompt({
+    String? title,
+    String? message,
+    String? text,
+    String? hintText,
+    String? confirmButton,
+    Function(String text)? confirmAction,
+    String? cancelButton,
+    VoidCallback? cancelAction,
+  }) {
+    AlertPlugin.instance.showPrompt(
+      context: this,
+      title: title,
+      message: message,
+      text: text,
+      hintText: hintText,
       confirmButton: confirmButton,
       confirmAction: confirmAction,
       cancelButton: cancelButton,

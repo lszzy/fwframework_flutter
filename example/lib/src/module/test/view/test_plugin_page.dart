@@ -63,6 +63,20 @@ class _TestPluginPageState extends State<TestPluginPage> {
           },
         );
       },
+      'show_prompt': () {
+        context.showPrompt(
+          title: "I am title",
+          message: "I am message",
+          text: '',
+          hintText: 'I am hint text',
+          confirmAction: (value) {
+            context.showToast('Text: $value');
+          },
+          cancelAction: () {
+            context.showToast('Cancel clicked');
+          },
+        );
+      },
       'show_sheet': () {
         context.showSheet(
           title: "I am title",
