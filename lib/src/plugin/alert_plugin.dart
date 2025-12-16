@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fwframework_flutter/src/module/app/app_theme.dart';
 
 abstract class AlertPluginInterface {
   void showAlert({
@@ -54,6 +56,8 @@ class AlertPlugin implements AlertPluginInterface {
   static AlertPluginInterface _instance = AlertPlugin();
   String Function(BuildContext context)? cancelButton = (context) => "Cancel";
   String Function(BuildContext context)? confirmButton = (context) => "Confirm";
+  TextStyle? Function(BuildContext context, bool isDefault)? alertStyle;
+  bool showsSheetCancel = true;
 
   @override
   void showAlert({
@@ -107,7 +111,60 @@ class AlertPlugin implements AlertPluginInterface {
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
-    // TODO: implement showSheet
+    if (cancelButton == null && showsSheetCancel && this.cancelButton != null) {
+      cancelButton = this.cancelButton!(context);
+    }
+    List<Widget>? actions;
+    if (buttons != null) {
+      actions = [];
+      for (var i = 0; i < buttons.length; i++) {
+        actions.add(CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+            if (action != null) action(i);
+          },
+          isDefaultAction: i == currentIndex,
+          child: Text(
+            buttons[i],
+            style: (alertStyle != null
+                    ? alertStyle!(context, i == currentIndex)
+                    : null) ??
+                TextStyle(
+                  color: i == currentIndex
+                      ? context.appTheme.primaryColor
+                      : context.appTheme.contentColor,
+                ),
+          ),
+        ));
+      }
+    }
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(
+          title: title != null ? Text(title) : null,
+          message: message != null ? Text(message) : null,
+          actions: actions,
+          cancelButton: cancelButton != null && cancelButton.isNotEmpty
+              ? CupertinoActionSheetAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (cancelAction != null) cancelAction();
+                  },
+                  isDefaultAction: false,
+                  child: Text(
+                    cancelButton,
+                    style: (alertStyle != null
+                            ? alertStyle!(context, false)
+                            : null) ??
+                        TextStyle(color: context.appTheme.contentColor),
+                  ),
+                )
+              : null,
+        );
+      },
+    );
   }
 }
 
