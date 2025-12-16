@@ -38,6 +38,7 @@ export 'package:package_info_plus/package_info_plus.dart';
 export 'package:device_info_plus/device_info_plus.dart';
 export 'package:visibility_detector/visibility_detector.dart';
 export 'package:go_router/go_router.dart';
+export 'package:json_annotation/json_annotation.dart';
 export 'package:mmkv/mmkv.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';

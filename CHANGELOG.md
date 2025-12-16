@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.1.0
+
+* Add alert plugin.
+* Add empty plugin.
+* Add toast plugin.
+
 ## 0.0.5
 
 * Add table color.
