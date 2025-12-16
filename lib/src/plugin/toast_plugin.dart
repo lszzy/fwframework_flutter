@@ -23,16 +23,14 @@ class ToastPlugin implements ToastPluginInterface {
   }
 
   static ToastPluginInterface _instance = ToastPlugin();
+
   String Function(BuildContext context)? loadingText;
 
   @override
   void showLoading({required String text, required BuildContext context}) {
-    var msg = text;
-    if (msg.isEmpty && loadingText != null) {
-      msg = loadingText!(context);
-    }
-    if (msg.isNotEmpty) {
-      SmartDialog.showLoading(msg: msg);
+    if (text.isEmpty && loadingText != null) text = loadingText!(context);
+    if (text.isNotEmpty) {
+      SmartDialog.showLoading(msg: text);
     } else {
       SmartDialog.showLoading();
     }
