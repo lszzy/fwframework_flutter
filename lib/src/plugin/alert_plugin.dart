@@ -75,48 +75,49 @@ class AlertPlugin implements AlertPluginInterface {
       cancelButton = this.cancelButton!(context);
     }
 
-    List<Widget> actions = [];
-    if (buttons != null && buttons.isNotEmpty) {
-      for (var i = 0; i < buttons.length; i++) {
-        actions.add(CupertinoDialogAction(
-          onPressed: () {
-            Navigator.pop(context);
-            if (action != null) action(i);
-          },
-          isDefaultAction: i == 0,
-          textStyle:
-              (alertStyle != null ? alertStyle!(context, i == 0) : null) ??
-                  TextStyle(
-                    color: i == 0
-                        ? context.appTheme.primaryColor
-                        : context.appTheme.mainColor,
-                  ),
-          child: Text(buttons[i]),
-        ));
-      }
-    }
-
-    if (cancelButton != null && cancelButton.isNotEmpty) {
-      final cancel = CupertinoDialogAction(
-        onPressed: () {
-          Navigator.pop(context);
-          if (cancelAction != null) cancelAction();
-        },
-        isDefaultAction: false,
-        textStyle: (alertStyle != null ? alertStyle!(context, false) : null) ??
-            TextStyle(color: context.appTheme.mainColor),
-        child: Text(cancelButton),
-      );
-      if (actions.length == 1) {
-        actions.insert(0, cancel);
-      } else {
-        actions.add(cancel);
-      }
-    }
-
     showCupertinoDialog(
       context: context,
       builder: (context) {
+        List<Widget> actions = [];
+        if (buttons != null && buttons.isNotEmpty) {
+          for (var i = 0; i < buttons.length; i++) {
+            actions.add(CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context);
+                if (action != null) action(i);
+              },
+              isDefaultAction: i == 0,
+              textStyle:
+                  (alertStyle != null ? alertStyle!(context, i == 0) : null) ??
+                      TextStyle(
+                        color: i == 0
+                            ? context.appTheme.primaryColor
+                            : context.appTheme.mainColor,
+                      ),
+              child: Text(buttons[i]),
+            ));
+          }
+        }
+
+        if (cancelButton != null && cancelButton.isNotEmpty) {
+          final cancel = CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+              if (cancelAction != null) cancelAction();
+            },
+            isDefaultAction: false,
+            textStyle:
+                (alertStyle != null ? alertStyle!(context, false) : null) ??
+                    TextStyle(color: context.appTheme.mainColor),
+            child: Text(cancelButton),
+          );
+          if (actions.length == 1) {
+            actions.insert(0, cancel);
+          } else {
+            actions.add(cancel);
+          }
+        }
+
         return CupertinoAlertDialog(
           title: title != null ? Text(title) : null,
           content: message != null ? Text(message) : null,
@@ -174,45 +175,42 @@ class AlertPlugin implements AlertPluginInterface {
       confirmButton = this.confirmButton!(context);
     }
 
-    List<Widget> actions = [];
-    if (cancelButton != null && cancelButton.isNotEmpty) {
-      final cancel = CupertinoDialogAction(
-        onPressed: () {
-          Navigator.pop(context);
-          if (cancelAction != null) cancelAction();
-        },
-        isDefaultAction: false,
-        textStyle: (alertStyle != null ? alertStyle!(context, false) : null) ??
-            TextStyle(color: context.appTheme.mainColor),
-        child: Text(cancelButton),
-      );
-      if (actions.length == 1) {
-        actions.insert(0, cancel);
-      } else {
-        actions.add(cancel);
-      }
-    }
-
-    final controller = TextEditingController();
-    controller.text = text ?? '';
-    if (confirmButton != null && confirmButton.isNotEmpty) {
-      actions.add(CupertinoDialogAction(
-        onPressed: () {
-          Navigator.pop(context);
-          if (confirmAction != null) {
-            confirmAction(controller.text.trim());
-          }
-        },
-        isDefaultAction: true,
-        textStyle: (alertStyle != null ? alertStyle!(context, true) : null) ??
-            TextStyle(color: context.appTheme.primaryColor),
-        child: Text(confirmButton),
-      ));
-    }
-
     showCupertinoDialog(
       context: context,
       builder: (context) {
+        List<Widget> actions = [];
+        if (cancelButton != null && cancelButton.isNotEmpty) {
+          actions.add(CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+              if (cancelAction != null) cancelAction();
+            },
+            isDefaultAction: false,
+            textStyle:
+                (alertStyle != null ? alertStyle!(context, false) : null) ??
+                    TextStyle(color: context.appTheme.mainColor),
+            child: Text(cancelButton),
+          ));
+        }
+
+        final controller = TextEditingController();
+        controller.text = text ?? '';
+        if (confirmButton != null && confirmButton.isNotEmpty) {
+          actions.add(CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+              if (confirmAction != null) {
+                confirmAction(controller.text.trim());
+              }
+            },
+            isDefaultAction: true,
+            textStyle:
+                (alertStyle != null ? alertStyle!(context, true) : null) ??
+                    TextStyle(color: context.appTheme.primaryColor),
+            child: Text(confirmButton),
+          ));
+        }
+
         return CupertinoAlertDialog(
           title: title != null ? Text(title) : null,
           content: Column(
@@ -253,34 +251,34 @@ class AlertPlugin implements AlertPluginInterface {
       cancelButton = this.cancelButton!(context);
     }
 
-    List<Widget>? actions;
-    if (buttons != null && buttons.isNotEmpty) {
-      actions = [];
-      for (var i = 0; i < buttons.length; i++) {
-        actions.add(CupertinoActionSheetAction(
-          onPressed: () {
-            Navigator.pop(context);
-            if (action != null) action(i);
-          },
-          isDefaultAction: i == currentIndex,
-          child: Text(
-            buttons[i],
-            style: (alertStyle != null
-                    ? alertStyle!(context, i == currentIndex)
-                    : null) ??
-                TextStyle(
-                  color: i == currentIndex
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.mainColor,
-                ),
-          ),
-        ));
-      }
-    }
-
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
+        List<Widget>? actions;
+        if (buttons != null && buttons.isNotEmpty) {
+          actions = [];
+          for (var i = 0; i < buttons.length; i++) {
+            actions.add(CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                if (action != null) action(i);
+              },
+              isDefaultAction: i == currentIndex,
+              child: Text(
+                buttons[i],
+                style: (alertStyle != null
+                        ? alertStyle!(context, i == currentIndex)
+                        : null) ??
+                    TextStyle(
+                      color: i == currentIndex
+                          ? context.appTheme.primaryColor
+                          : context.appTheme.mainColor,
+                    ),
+              ),
+            ));
+          }
+        }
+
         return CupertinoActionSheet(
           title: title != null ? Text(title) : null,
           message: message != null ? Text(message) : null,

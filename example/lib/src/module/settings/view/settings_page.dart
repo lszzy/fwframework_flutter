@@ -44,89 +44,19 @@ class SettingsPage extends StatelessWidget {
   void _onLocaleTapped(BuildContext context) {
     final localeCubit = context.read<LocaleCubit>();
     final locale = localeCubit.state;
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () {
-                localeCubit.setLocale(null);
-                MmkvService.instance
-                    .defaultMMKV()
-                    .encodeString('appLocale', null);
-                EventService.instance.eventBus.fire(LocaleChangedEvent(null));
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: locale == null,
-              child: Text(
-                S.of(context).settings_system,
-                style: TextStyle(
-                  color: locale == null
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                localeCubit.setLocale(AppLocale.en.locale);
-                MmkvService.instance.defaultMMKV().encodeString(
-                    'appLocale', AppLocale.en.locale.toLanguageTag());
-                EventService.instance.eventBus
-                    .fire(LocaleChangedEvent(AppLocale.en));
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: locale == AppLocale.en.locale,
-              child: Text(
-                AppLocale.en.name,
-                style: TextStyle(
-                  color: locale == AppLocale.en.locale
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                localeCubit.setLocale(AppLocale.zhHans.locale);
-                MmkvService.instance.defaultMMKV().encodeString(
-                    'appLocale', AppLocale.zhHans.locale.toLanguageTag());
-                EventService.instance.eventBus
-                    .fire(LocaleChangedEvent(AppLocale.zhHans));
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: locale == AppLocale.zhHans.locale,
-              child: Text(
-                AppLocale.zhHans.name,
-                style: TextStyle(
-                  color: locale == AppLocale.zhHans.locale
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                localeCubit.setLocale(AppLocale.zhHant.locale);
-                MmkvService.instance.defaultMMKV().encodeString(
-                    'appLocale', AppLocale.zhHant.locale.toLanguageTag());
-                EventService.instance.eventBus
-                    .fire(LocaleChangedEvent(AppLocale.zhHant));
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: locale == AppLocale.zhHant.locale,
-              child: Text(
-                AppLocale.zhHant.name,
-                style: TextStyle(
-                  color: locale == AppLocale.zhHant.locale
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-          ],
-        );
+    final appLocales = [null, AppLocale.en, AppLocale.zhHans, AppLocale.zhHant];
+    context.showSheet(
+      buttons: appLocales
+          .map((al) => al?.name ?? context.s.settings_system)
+          .toList(),
+      currentIndex: appLocales.map((al) => al?.locale).toList().indexOf(locale),
+      action: (index) {
+        final appLocale = appLocales[index];
+        localeCubit.setLocale(appLocale?.locale);
+        MmkvService.instance
+            .defaultMMKV()
+            .encodeString('appLocale', appLocale?.locale.toLanguageTag());
+        EventService.instance.eventBus.fire(LocaleChangedEvent(appLocale));
       },
     );
   }
@@ -134,58 +64,17 @@ class SettingsPage extends StatelessWidget {
   void _onThemeTapped(BuildContext context) {
     final themeCubit = context.read<ThemeCubit>();
     final theme = themeCubit.state;
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeCubit.setThemeMode(ThemeMode.system);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: theme == ThemeMode.system,
-              child: Text(
-                S.of(context).settings_system,
-                style: TextStyle(
-                  color: theme == ThemeMode.system
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeCubit.setThemeMode(ThemeMode.light);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: theme == ThemeMode.light,
-              child: Text(
-                context.s.settings_light,
-                style: TextStyle(
-                  color: theme == ThemeMode.light
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeCubit.setThemeMode(ThemeMode.dark);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: theme == ThemeMode.dark,
-              child: Text(
-                context.s.settings_dark,
-                style: TextStyle(
-                  color: theme == ThemeMode.dark
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-          ],
-        );
+    final buttons = [
+      S.of(context).settings_system,
+      context.s.settings_light,
+      context.s.settings_dark,
+    ];
+    final themes = [ThemeMode.system, ThemeMode.light, ThemeMode.dark];
+    context.showSheet(
+      buttons: buttons,
+      currentIndex: themes.indexOf(theme),
+      action: (index) {
+        themeCubit.setThemeMode(themes[index]);
       },
     );
   }
@@ -193,88 +82,25 @@ class SettingsPage extends StatelessWidget {
   void _onStyleTapped(BuildContext context) {
     final themeStyleCubit = context.read<ThemeStyleCubit>();
     final themeStyle = themeStyleCubit.state;
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeStyleCubit.setThemeStyle(ThemeStyle.normal);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: themeStyle == ThemeStyle.normal,
-              child: Text(
-                context.s.settings_default,
-                style: TextStyle(
-                  color: themeStyle == ThemeStyle.normal
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeStyleCubit.setThemeStyle(ThemeStyle.purple);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: themeStyle == ThemeStyle.purple,
-              child: Text(
-                context.s.settings_purple,
-                style: TextStyle(
-                  color: themeStyle == ThemeStyle.purple
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeStyleCubit.setThemeStyle(ThemeStyle.green);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: themeStyle == ThemeStyle.green,
-              child: Text(
-                context.s.settings_green,
-                style: TextStyle(
-                  color: themeStyle == ThemeStyle.green
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeStyleCubit.setThemeStyle(ThemeStyle.orange);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: themeStyle == ThemeStyle.orange,
-              child: Text(
-                context.s.settings_orange,
-                style: TextStyle(
-                  color: themeStyle == ThemeStyle.orange
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                themeStyleCubit.setThemeStyle(ThemeStyle.blue);
-                Navigator.of(context).pop();
-              },
-              isDefaultAction: themeStyle == ThemeStyle.blue,
-              child: Text(
-                context.s.settings_blue,
-                style: TextStyle(
-                  color: themeStyle == ThemeStyle.blue
-                      ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
-                ),
-              ),
-            ),
-          ],
-        );
+    final buttons = [
+      context.s.settings_default,
+      context.s.settings_purple,
+      context.s.settings_green,
+      context.s.settings_orange,
+      context.s.settings_blue,
+    ];
+    final themeStyles = [
+      ThemeStyle.normal,
+      ThemeStyle.purple,
+      ThemeStyle.green,
+      ThemeStyle.orange,
+      ThemeStyle.blue,
+    ];
+    context.showSheet(
+      buttons: buttons,
+      currentIndex: themeStyles.indexOf(themeStyle),
+      action: (index) {
+        themeStyleCubit.setThemeStyle(themeStyles[index]);
       },
     );
   }

@@ -80,6 +80,26 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get action_cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'action_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get action_confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'action_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `fwframework_flutter Demo`
   String get home_title {
     return Intl.message(

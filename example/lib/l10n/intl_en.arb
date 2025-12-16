@@ -2,6 +2,8 @@
     "tabbar_home": "Home",
     "tabbar_test": "Test",
     "tabbar_settings": "Settings",
+    "action_cancel": "Cancel",
+    "action_confirm": "Confirm",
     "home_title": "fwframework_flutter Demo",
     "home_welcome": "Do you know that I'm waiting for you?",
     "settings_locale": "Language",
