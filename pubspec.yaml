@@ -1,6 +1,6 @@
 name: fwframework_flutter
 description: "Flutter development framework."
-version: 0.0.5
+version: 0.1.0
 homepage: https://github.com/lszzy/fwframework_flutter
 
 environment:
@@ -22,6 +22,7 @@ dependencies:
   package_info_plus: ^8.3.0
   device_info_plus: ^11.0.0
   go_router: ^15.0.0
+  json_annotation: ^4.9.0
   mmkv: ^2.2.0
   shared_preferences: ^2.0.0
   flutter_secure_storage: ^9.2.4

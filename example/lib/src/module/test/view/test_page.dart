@@ -26,6 +26,7 @@ class _TestPageState extends State<TestPage> {
         ).push(context);
       },
       'flutter_screenutil': TestScreenutilRoute().location,
+      'plugin_test': TestPluginRoute().location,
     };
     super.initState();
   }
@@ -46,7 +47,10 @@ class _TestPageState extends State<TestPage> {
         itemBuilder: (context, index) {
           final routeKey = routeKeys[index];
           return ListTile(
-            title: Text(routeKey),
+            title: Text(
+              routeKey,
+              style: context.appTheme.textStyle(),
+            ),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
               final route = _testRoutes[routeKey];
