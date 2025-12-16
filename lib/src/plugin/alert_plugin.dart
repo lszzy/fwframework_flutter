@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fwframework_flutter/src/module/app/app_theme.dart';
 
 abstract class AlertPluginInterface {
@@ -19,18 +18,6 @@ abstract class AlertPluginInterface {
     String? message,
     String? confirmButton,
     VoidCallback? confirmAction,
-    String? cancelButton,
-    VoidCallback? cancelAction,
-  });
-
-  void showPrompt({
-    required BuildContext context,
-    String? title,
-    String? message,
-    String? text,
-    String? hintText,
-    String? confirmButton,
-    Function(String text)? confirmAction,
     String? cancelButton,
     VoidCallback? cancelAction,
   });
@@ -69,7 +56,59 @@ class AlertPlugin implements AlertPluginInterface {
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
-    // TODO: implement showAlert
+    if (cancelButton == null && this.cancelButton != null) {
+      cancelButton = this.cancelButton!(context);
+    }
+
+    List<Widget> actions = [];
+    if (buttons != null && buttons.isNotEmpty) {
+      for (var i = 0; i < buttons.length; i++) {
+        actions.add(CupertinoDialogAction(
+          onPressed: () {
+            Navigator.pop(context);
+            if (action != null) action(i);
+          },
+          isDefaultAction: i == 0,
+          textStyle:
+              (alertStyle != null ? alertStyle!(context, i == 0) : null) ??
+                  TextStyle(
+                    color: i == 0
+                        ? context.appTheme.primaryColor
+                        : context.appTheme.mainColor,
+                  ),
+          child: Text(buttons[i]),
+        ));
+      }
+    }
+
+    if (cancelButton != null && cancelButton.isNotEmpty) {
+      final cancel = CupertinoDialogAction(
+        onPressed: () {
+          Navigator.pop(context);
+          if (cancelAction != null) cancelAction();
+        },
+        isDefaultAction: false,
+        textStyle: (alertStyle != null ? alertStyle!(context, false) : null) ??
+            TextStyle(color: context.appTheme.mainColor),
+        child: Text(cancelButton),
+      );
+      if (actions.length == 1) {
+        actions.insert(0, cancel);
+      } else {
+        actions.add(cancel);
+      }
+    }
+
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: title != null ? Text(title) : null,
+          content: message != null ? Text(message) : null,
+          actions: actions,
+        );
+      },
+    );
   }
 
   @override
@@ -82,22 +121,23 @@ class AlertPlugin implements AlertPluginInterface {
     String? cancelButton,
     VoidCallback? cancelAction,
   }) {
-    // TODO: implement showConfirm
-  }
+    if (confirmButton == null && this.confirmButton != null) {
+      confirmButton = this.confirmButton!(context);
+    }
 
-  @override
-  void showPrompt({
-    required BuildContext context,
-    String? title,
-    String? message,
-    String? text,
-    String? hintText,
-    String? confirmButton,
-    Function(String text)? confirmAction,
-    String? cancelButton,
-    VoidCallback? cancelAction,
-  }) {
-    // TODO: implement showPrompt
+    showAlert(
+      context: context,
+      title: title,
+      message: message,
+      buttons: confirmButton != null && confirmButton.isNotEmpty
+          ? [confirmButton]
+          : null,
+      action: (index) {
+        if (confirmAction != null) confirmAction();
+      },
+      cancelButton: cancelButton,
+      cancelAction: cancelAction,
+    );
   }
 
   @override
@@ -114,8 +154,9 @@ class AlertPlugin implements AlertPluginInterface {
     if (cancelButton == null && showsSheetCancel && this.cancelButton != null) {
       cancelButton = this.cancelButton!(context);
     }
+
     List<Widget>? actions;
-    if (buttons != null) {
+    if (buttons != null && buttons.isNotEmpty) {
       actions = [];
       for (var i = 0; i < buttons.length; i++) {
         actions.add(CupertinoActionSheetAction(
@@ -132,7 +173,7 @@ class AlertPlugin implements AlertPluginInterface {
                 TextStyle(
                   color: i == currentIndex
                       ? context.appTheme.primaryColor
-                      : context.appTheme.contentColor,
+                      : context.appTheme.mainColor,
                 ),
           ),
         ));
@@ -158,7 +199,7 @@ class AlertPlugin implements AlertPluginInterface {
                     style: (alertStyle != null
                             ? alertStyle!(context, false)
                             : null) ??
-                        TextStyle(color: context.appTheme.contentColor),
+                        TextStyle(color: context.appTheme.mainColor),
                   ),
                 )
               : null,
@@ -200,28 +241,6 @@ extension AlertPluginExtension on BuildContext {
       context: this,
       title: title,
       message: message,
-      confirmButton: confirmButton,
-      cancelButton: cancelButton,
-      cancelAction: cancelAction,
-    );
-  }
-
-  void showPrompt({
-    String? title,
-    String? message,
-    String? text,
-    String? hintText,
-    String? confirmButton,
-    Function(String text)? confirmAction,
-    String? cancelButton,
-    VoidCallback? cancelAction,
-  }) {
-    AlertPlugin.instance.showPrompt(
-      context: this,
-      title: title,
-      message: message,
-      text: text,
-      hintText: hintText,
       confirmButton: confirmButton,
       confirmAction: confirmAction,
       cancelButton: cancelButton,

@@ -42,9 +42,9 @@ class _TestPluginPageState extends State<TestPluginPage> {
         context.showAlert(
           title: "I am title",
           message: "I am message",
-          buttons: ["Button 1"],
+          buttons: ["Button 1", "Button 2"],
           action: (index) {
-            context.showToast('Button 1 clicked');
+            context.showToast('Button ${index + 1} clicked');
           },
           cancelAction: () {
             context.showToast('Cancel clicked');
@@ -57,20 +57,6 @@ class _TestPluginPageState extends State<TestPluginPage> {
           message: "Are you sure?",
           confirmAction: () {
             context.showToast('Confirm clicked');
-          },
-          cancelAction: () {
-            context.showToast('Cancel clicked');
-          },
-        );
-      },
-      'show_prompt': () {
-        context.showPrompt(
-          title: "I am title",
-          message: "I am message",
-          text: '',
-          hintText: 'I am hint text',
-          confirmAction: (value) {
-            context.showToast('Text: $value');
           },
           cancelAction: () {
             context.showToast('Cancel clicked');
