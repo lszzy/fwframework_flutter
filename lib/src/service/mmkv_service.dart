@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:mmkv/mmkv.dart';
@@ -61,5 +62,25 @@ class MmkvService {
           : MMKVMode.SINGLE_PROCESS_MODE,
       cryptKey: _cryptKey,
     );
+  }
+}
+
+extension MmkvServiceExtension on MMKV {
+  dynamic decodeJson(String key) {
+    final value = decodeString(key);
+    if (value == null || value.isEmpty) return null;
+    return jsonDecode(value);
+  }
+
+  bool encodeJson(String key, dynamic value) {
+    return encodeString(key, value != null ? jsonEncode(value) : null);
+  }
+
+  Map<String, dynamic>? decodeMap(String key) {
+    return decodeJson(key) as Map<String, dynamic>?;
+  }
+
+  List<dynamic>? decodeList(String key) {
+    return decodeJson(key) as List<dynamic>?;
   }
 }
