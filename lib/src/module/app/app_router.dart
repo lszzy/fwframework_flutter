@@ -62,24 +62,38 @@ class AppRouter {
     return MaterialPage(key: state.pageKey, child: child);
   }
 
-  static CustomTransitionPage fadeTransitionPage(Widget child,
-      {LocalKey? key, bool opaque = true}) {
+  static CustomTransitionPage fadeTransitionPage(
+    Widget child, {
+    LocalKey? key,
+    bool opaque = true,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+    Duration reverseTransitionDuration = const Duration(milliseconds: 300),
+  }) {
     return CustomTransitionPage(
       key: key,
       child: child,
       opaque: opaque,
+      transitionDuration: transitionDuration,
+      reverseTransitionDuration: reverseTransitionDuration,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return fadeTransition(animation, child);
       },
     );
   }
 
-  static CustomTransitionPage presentTransitionPage(Widget child,
-      {LocalKey? key, bool opaque = true}) {
+  static CustomTransitionPage presentTransitionPage(
+    Widget child, {
+    LocalKey? key,
+    bool opaque = true,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+    Duration reverseTransitionDuration = const Duration(milliseconds: 300),
+  }) {
     return CustomTransitionPage(
       key: key,
       child: child,
       opaque: opaque,
+      transitionDuration: transitionDuration,
+      reverseTransitionDuration: reverseTransitionDuration,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return presentTransition(animation, child);
       },
