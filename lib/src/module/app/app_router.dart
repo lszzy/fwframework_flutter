@@ -62,18 +62,24 @@ class AppRouter {
     return MaterialPage(key: state.pageKey, child: child);
   }
 
-  static CustomTransitionPage fadeTransitionPage(Widget child) {
+  static CustomTransitionPage fadeTransitionPage(Widget child,
+      {LocalKey? key, bool opaque = true}) {
     return CustomTransitionPage(
+      key: key,
       child: child,
+      opaque: opaque,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return fadeTransition(animation, child);
       },
     );
   }
 
-  static CustomTransitionPage presentTransitionPage(Widget child) {
+  static CustomTransitionPage presentTransitionPage(Widget child,
+      {LocalKey? key, bool opaque = true}) {
     return CustomTransitionPage(
+      key: key,
       child: child,
+      opaque: opaque,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return presentTransition(animation, child);
       },

@@ -19,8 +19,11 @@ class TestGorouterRoute extends GoRouteData with $TestGorouterRoute {
   final TestGorouterExtra? $extra;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return TestGorouterPage(path: path, query: query, extra: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return AppRouter.presentTransitionPage(
+      TestGorouterPage(path: path, query: query, extra: $extra),
+      key: state.pageKey,
+    );
   }
 }
 
