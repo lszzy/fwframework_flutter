@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fwframework_flutter/src/service/storage_service.dart';
 import 'package:fwframework_flutter/src/service/mmkv_service.dart';
 import 'package:fwframework_flutter/src/service/locale_service.dart';
@@ -8,10 +10,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppLauncher {
-  static void run(Widget app) async {
+  static void run(
+    Widget app, {
+    bool initStorage = true,
+    bool initMmkv = true,
+    List<DeviceOrientation>? orientations,
+  }) async {
     WidgetsFlutterBinding.ensureInitialized();
-    await StorageService.ensureInitialized();
-    await MmkvService.ensureInitialized();
+    if (initStorage) {
+      await StorageService.ensureInitialized();
+    }
+    if (initMmkv) {
+      await MmkvService.ensureInitialized();
+    }
+    if (orientations != null) {
+      SystemChrome.setPreferredOrientations(orientations);
+    }
 
     runApp(MultiBlocProvider(providers: [
       BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
@@ -56,7 +70,7 @@ class AppLauncher {
                 extensions: [AppPalette.darkTheme(themeStyle)],
               ),
           themeMode: themeMode,
-          builder: routerBuilder,
+          builder: routerBuilder ?? FlutterSmartDialog.init(),
           locale: locale,
           supportedLocales: supportedLocales,
           localeListResolutionCallback: (locales, supportedLocales) {

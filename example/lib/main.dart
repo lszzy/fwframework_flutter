@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
             ...[TabPage.route],
             ...$appRoutes
           ],
-          observers: [FwdebugFlutter.navigatorObserver],
+          observers: [
+            FlutterSmartDialog.observer,
+            FwdebugFlutter.navigatorObserver,
+          ],
         ),
         routerBuilder: FlutterSmartDialog.init(
           builder: (context, child) {
