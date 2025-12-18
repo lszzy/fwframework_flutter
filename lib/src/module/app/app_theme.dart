@@ -394,11 +394,11 @@ class AppTheme extends ThemeExtension<AppTheme> {
     double borderWidth = 0,
     Color? borderColor,
     double? borderRadius,
-    bool boxShadow = false,
+    double blurRadius = 0,
+    BlurStyle? blurStyle,
     Color? shadowColor,
     Offset? shadowOffset,
-    double? blurRadius,
-    BlurStyle? blurStyle,
+    double? spreadRadius,
     Gradient? gradient,
     BoxShape? shape,
   }) {
@@ -414,13 +414,14 @@ class AppTheme extends ThemeExtension<AppTheme> {
           borderRadius != null ? BorderRadius.circular(borderRadius) : null,
       gradient: gradient,
       shape: shape ?? BoxShape.rectangle,
-      boxShadow: boxShadow
+      boxShadow: blurRadius > 0
           ? [
               BoxShadow(
                 color: shadowColor ?? this.shadowColor,
                 offset: shadowOffset ?? Offset.zero,
-                blurRadius: blurRadius ?? 5,
+                blurRadius: blurRadius,
                 blurStyle: blurStyle ?? BlurStyle.normal,
+                spreadRadius: spreadRadius ?? 0.0,
               ),
             ]
           : null,
