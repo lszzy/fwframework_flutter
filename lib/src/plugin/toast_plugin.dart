@@ -3,15 +3,15 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract class ToastPluginInterface {
   void showLoading({
-    required String text,
-    required BuildContext context,
+    String? text,
+    BuildContext? context,
   });
 
-  void hideLoading({required BuildContext context});
+  void hideLoading({BuildContext? context});
 
   void showToast(
     String text, {
-    required BuildContext context,
+    BuildContext? context,
     VoidCallback? completion,
   });
 }
@@ -24,12 +24,12 @@ class ToastPlugin implements ToastPluginInterface {
 
   static ToastPluginInterface _instance = ToastPlugin();
 
-  String Function(BuildContext context)? loadingText;
+  String? Function(BuildContext? context)? loadingText;
 
   @override
-  void showLoading({required String text, required BuildContext context}) {
-    if (text.isEmpty && loadingText != null) text = loadingText!(context);
-    if (text.isNotEmpty) {
+  void showLoading({String? text, BuildContext? context}) {
+    if (text == null && loadingText != null) text = loadingText!(context);
+    if (text != null && text.isNotEmpty) {
       SmartDialog.showLoading(msg: text);
     } else {
       SmartDialog.showLoading();
@@ -37,19 +37,19 @@ class ToastPlugin implements ToastPluginInterface {
   }
 
   @override
-  void hideLoading({required BuildContext context}) {
+  void hideLoading({BuildContext? context}) {
     SmartDialog.dismiss(status: SmartStatus.loading);
   }
 
   @override
   void showToast(String text,
-      {required BuildContext context, VoidCallback? completion}) {
+      {BuildContext? context, VoidCallback? completion}) {
     SmartDialog.showToast(text, onDismiss: completion);
   }
 }
 
 extension ToastPluginExtension on BuildContext {
-  void showLoading({String text = ''}) {
+  void showLoading({String? text}) {
     ToastPlugin.instance.showLoading(text: text, context: this);
   }
 

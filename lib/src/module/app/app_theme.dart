@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppTheme extends ThemeExtension<AppTheme> {
+  static double? defaultFontSize;
+  static String? defaultFontFamily;
+
   const AppTheme({
     required this.primaryColor,
     required this.primaryDarkColor,
@@ -379,10 +382,10 @@ class AppTheme extends ThemeExtension<AppTheme> {
   }) {
     return TextStyle(
       color: color ?? mainColor,
-      fontSize: fontSize,
+      fontSize: fontSize ?? defaultFontSize,
       fontWeight: fontWeight,
       fontStyle: fontStyle,
-      fontFamily: fontFamily,
+      fontFamily: fontFamily ?? defaultFontFamily,
     );
   }
 }
