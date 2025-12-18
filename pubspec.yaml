@@ -19,13 +19,13 @@ dependencies:
   flutter_bloc: ^9.0.0
   path_provider: ^2.1.0
   path_provider_foundation: ^2.4.0
-  package_info_plus: ^8.3.0
+  package_info_plus: ^9.0.0
   device_info_plus: ^11.0.0
   go_router: ^15.0.0
   json_annotation: ^4.9.0
-  mmkv: ^2.2.0
+  mmkv: ^2.3.0
   shared_preferences: ^2.0.0
-  flutter_secure_storage: ^9.2.4
+  flutter_secure_storage: ^10.0.0
   visibility_detector: ^0.4.0
 
 dev_dependencies:
