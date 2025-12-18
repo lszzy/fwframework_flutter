@@ -388,6 +388,44 @@ class AppTheme extends ThemeExtension<AppTheme> {
       fontFamily: fontFamily ?? defaultFontFamily,
     );
   }
+
+  BoxDecoration boxDecoration({
+    Color? color,
+    double borderWidth = 0,
+    Color? borderColor,
+    double? borderRadius,
+    bool boxShadow = false,
+    Color? shadowColor,
+    Offset? shadowOffset,
+    double? blurRadius,
+    BlurStyle? blurStyle,
+    Gradient? gradient,
+    BoxShape? shape,
+  }) {
+    return BoxDecoration(
+      color: color,
+      border: borderWidth > 0
+          ? BoxBorder.all(
+              color: borderColor ?? this.borderColor,
+              width: borderWidth,
+            )
+          : null,
+      borderRadius:
+          borderRadius != null ? BorderRadius.circular(borderRadius) : null,
+      gradient: gradient,
+      shape: shape ?? BoxShape.rectangle,
+      boxShadow: boxShadow
+          ? [
+              BoxShadow(
+                color: shadowColor ?? this.shadowColor,
+                offset: shadowOffset ?? Offset.zero,
+                blurRadius: blurRadius ?? 5,
+                blurStyle: blurStyle ?? BlurStyle.normal,
+              ),
+            ]
+          : null,
+    );
+  }
 }
 
 extension AppThemeBuildContext on BuildContext {
