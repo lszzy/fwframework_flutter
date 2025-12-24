@@ -28,7 +28,7 @@ class AppPalette {
     infoLightColor: Color(0xfff4f4f5),
     whiteColor: Color(0xffffffff),
     blackColor: Color(0xff000000),
-    mainColor: Color(0xff111113),
+    mainColor: Color(0xff303133),
     contentColor: Color(0xff606266),
     tipsColor: Color(0xff909399),
     lightColor: Color(0xffc0c4cc),
